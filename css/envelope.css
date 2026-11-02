@@ -12,7 +12,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  padding: clamp(4.5rem, 9vh, 7rem) var(--pad-gutter);
+  padding: clamp(2.6rem, 6.5vh, 4.5rem) var(--pad-gutter);
   background:
     radial-gradient(58% 46% at 50% 42%, rgba(203, 185, 142, .17), transparent 68%),
     radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--sage) 16%, transparent), transparent 55%),
@@ -24,7 +24,7 @@
 .opening__florals {
   position: absolute;
   z-index: 0;
-  width: clamp(300px, 40vw, 620px);
+  width: clamp(280px, 28vw, 520px);
   height: auto;
   opacity: .92;
   filter: drop-shadow(0 14px 24px rgba(41, 41, 32, .12));
@@ -33,13 +33,13 @@
 }
 
 .opening__florals--tl {
-  top: clamp(-30px, -2vw, -10px);
-  left: clamp(-46px, -2.5vw, -14px);
+  top: clamp(-52px, -3.4vw, -16px);
+  left: clamp(-78px, -4.2vw, -24px);
 }
 
 .opening__florals--br {
-  bottom: clamp(-30px, -2vw, -10px);
-  right: clamp(-46px, -2.5vw, -14px);
+  bottom: clamp(-52px, -3.4vw, -16px);
+  right: clamp(-78px, -4.2vw, -24px);
   transform: scaleX(-1) rotate(6deg);
   animation-delay: -7s;
 }
@@ -106,7 +106,7 @@
 .opening__eyebrow { margin-bottom: .9rem; }
 
 .opening__names {
-  font-size: var(--fs-script-xl);
+  font-size: clamp(3.4rem, 7.2vw, 7.5rem);
   margin: 0;
   color: var(--ink);
   text-wrap: balance;
@@ -116,8 +116,8 @@
 
 .envelope-stage {
   position: relative;
-  width: min(540px, 88vw);
-  margin: 2.7rem auto 2.2rem;
+  width: min(470px, 88vw, 60vh);
+  margin: 1.7rem auto 1.4rem;
 }
 
 .table-shadow {
