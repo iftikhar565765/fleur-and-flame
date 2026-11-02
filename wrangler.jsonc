@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "fleur-invitations",
-      "database_id": "REPLACE_WITH_YOUR_NEW_D1_DATABASE_ID"
+      "database_id": "ac29914c-944f-4cb0-be20-648535c24c60"
     }
   ]
 }
