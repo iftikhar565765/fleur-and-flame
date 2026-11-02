@@ -14,8 +14,8 @@
   overflow: hidden;
   padding: clamp(2.6rem, 6.5vh, 4.5rem) var(--pad-gutter);
   background:
-    radial-gradient(58% 46% at 50% 42%, rgba(203, 185, 142, .17), transparent 68%),
-    radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--sage) 16%, transparent), transparent 55%),
+    radial-gradient(58% 46% at 50% 42%, rgba(203, 185, 142, .12), transparent 68%),
+    radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--sage) 12%, transparent), transparent 55%),
     var(--ivory);
 }
 
@@ -24,22 +24,22 @@
 .opening__florals {
   position: absolute;
   z-index: 0;
-  width: clamp(280px, 28vw, 520px);
+  width: clamp(230px, 23vw, 430px);
   height: auto;
-  opacity: .92;
-  filter: drop-shadow(0 14px 24px rgba(41, 41, 32, .12));
+  opacity: .78;
+  filter: saturate(.78) drop-shadow(0 10px 18px rgba(41, 41, 32, .08));
   pointer-events: none;
   animation: florals-sway 14s var(--ease-soft) infinite alternate;
 }
 
 .opening__florals--tl {
-  top: clamp(-52px, -3.4vw, -16px);
-  left: clamp(-78px, -4.2vw, -24px);
+  top: clamp(-58px, -3.8vw, -20px);
+  left: clamp(-88px, -4.8vw, -30px);
 }
 
 .opening__florals--br {
-  bottom: clamp(-52px, -3.4vw, -16px);
-  right: clamp(-78px, -4.2vw, -24px);
+  bottom: clamp(-58px, -3.8vw, -20px);
+  right: clamp(-88px, -4.8vw, -30px);
   transform: scaleX(-1) rotate(6deg);
   animation-delay: -7s;
 }
@@ -60,10 +60,10 @@
   z-index: 0;
   left: 50%;
   top: 44%;
-  width: min(760px, 92vw);
+  width: min(720px, 90vw);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(214, 178, 116, .22), rgba(214, 178, 116, .07) 46%, transparent 72%);
+  background: radial-gradient(closest-side, rgba(214, 178, 116, .15), rgba(214, 178, 116, .05) 46%, transparent 72%);
   filter: blur(2px);
   animation: glow-breathe 7s ease-in-out infinite alternate;
   pointer-events: none;
@@ -89,7 +89,7 @@
   font-family: var(--font-script);
   font-size: clamp(18rem, 46vw, 34rem);
   line-height: 1;
-  color: color-mix(in srgb, var(--ink) 5%, transparent);
+  color: color-mix(in srgb, var(--ink) 3.5%, transparent);
   pointer-events: none;
   user-select: none;
 }
@@ -116,8 +116,8 @@
 
 .envelope-stage {
   position: relative;
-  width: min(470px, 88vw, 60vh);
-  margin: 1.7rem auto 1.4rem;
+  width: min(440px, 86vw, 56vh);
+  margin: 1.9rem auto 1.6rem;
 }
 
 .table-shadow {
@@ -149,9 +149,7 @@
 .envelope__card {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(168deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 42%),
-    var(--paper-raised);
+  background: var(--paper-raised);
   border-radius: 2px;
   box-shadow: var(--shadow-lift);
 }
@@ -159,7 +157,7 @@
 .envelope__card-frame {
   position: absolute;
   inset: 11px;
-  border: 1px solid color-mix(in srgb, var(--burgundy) 32%, transparent);
+  border: 1px solid color-mix(in srgb, var(--burgundy) 26%, transparent);
   border-radius: 1px;
   pointer-events: none;
 }
@@ -239,13 +237,13 @@
   display: grid;
   place-items: center;
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--paper-raised) 78%, transparent),
-    color-mix(in srgb, var(--paper-raised) 62%, transparent));
+    color-mix(in srgb, var(--paper-raised) 72%, transparent),
+    color-mix(in srgb, var(--paper-raised) 56%, transparent));
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-  box-shadow: 0 8px 18px rgba(41, 41, 32, .1);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  box-shadow: 0 8px 18px rgba(41, 41, 32, .08);
 }
 
 .envelope__address {
@@ -316,9 +314,9 @@
 }
 
 .opening__hint-rule {
-  width: 62px;
+  width: 52px;
   height: 1px;
-  background: color-mix(in srgb, var(--ink) 24%, transparent);
+  background: color-mix(in srgb, var(--ink) 20%, transparent);
 }
 
 .opening__open { margin-top: .2rem; }
@@ -338,6 +336,11 @@
 /* ── handover to the site ───────────────────────────────────── */
 
 #site { opacity: 1; }
+
+/* the reveal is a crossfade, never a hard cut */
+html.js #site {
+  transition: opacity .85s var(--ease-soft);
+}
 
 /* while the envelope waits, the page is one fixed scene —
    no scrolling into the still-hidden invitation below     */
@@ -371,12 +374,12 @@ body.intro-pending .opening__florals--br { animation: florals-enter-br 1.3s var(
 
 @keyframes florals-enter-tl {
   from { opacity: 0; translate: -34px -26px; }
-  to   { opacity: .92; translate: 0 0; }
+  to   { opacity: .78; translate: 0 0; }
 }
 
 @keyframes florals-enter-br {
   from { opacity: 0; translate: 34px 26px; }
-  to   { opacity: .92; translate: 0 0; }
+  to   { opacity: .78; translate: 0 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -424,7 +427,8 @@ body.editor-live .envelope__stamp { pointer-events: auto; }
 }
 
 @keyframes card-taken {
-  to { transform: rotate(0deg) translateY(-2%) scale(1.9); }
+  55% { opacity: 1; }
+  to { transform: rotate(0deg) translateY(-2%) scale(1.9); opacity: 0; }
 }
 
 /* the overlay's own quiet exit when the skip path is taken */

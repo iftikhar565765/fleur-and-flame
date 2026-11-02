@@ -26,11 +26,11 @@
   /* ── the opening ─────────────────────────────────────────── */
   .opening { padding-block: 5rem 4rem; }
   .opening__florals {
-    width: clamp(190px, 46vw, 280px);
-    opacity: .8;
+    width: clamp(165px, 42vw, 250px);
+    opacity: .72;
   }
-  .opening__florals--tl { top: -18px; left: -30px; }
-  .opening__florals--br { bottom: -18px; right: -30px; }
+  .opening__florals--tl { top: -20px; left: -34px; }
+  .opening__florals--br { bottom: -20px; right: -34px; }
   .opening__names { font-size: clamp(2.7rem, 12vw, 4rem); }
   .envelope-stage { margin-block: 2.2rem 2.6rem; }
   .envelope__stamp { width: 44px; top: 12px; right: 13px; }
@@ -44,13 +44,14 @@
   .opening__hint { gap: .7rem; }
 
   /* ── № 01 invitation ─────────────────────────────────────── */
+  .scene--invitation { padding-block: 5.5rem 3.5rem; }
   .invite-card { margin-inline: 0; }
-  .invite-card__spray { width: 116px; }
-  .invite-card__spray--tl { top: -30px; left: -26px; }
-  .invite-card__spray--br { bottom: -30px; right: -26px; }
+  .invite-card__spray { width: 96px; }
+  .invite-card__spray--tl { top: -24px; left: -24px; }
+  .invite-card__spray--br { bottom: -24px; right: -24px; }
   .invite-card__names { font-size: clamp(2.7rem, 12.5vw, 4.2rem); }
   .invite-actions { display: grid; grid-template-columns: 1fr; }
-  .invitation-bloom { opacity: .32; }
+  .invitation-bloom { opacity: .26; }
 
   /* ── № 02 story ──────────────────────────────────────────── */
   .story-folio { padding-top: 3.4rem; }
@@ -62,7 +63,7 @@
 
   /* ── № 03 save the date ──────────────────────────────────── */
   .std-date { font-size: clamp(2.9rem, 13vw, 4.6rem); }
-  .std-candles { width: 150px; }
+  .std-candles { width: 128px; }
 
   /* ── № 04 details ────────────────────────────────────────── */
   .detail-item { grid-template-columns: 1.8rem minmax(0, 1fr); column-gap: .7rem; }
@@ -82,12 +83,12 @@
   .venue-name { font-size: clamp(1.9rem, 7.5vw, 2.9rem); }
 
   /* ── № 09 countdown ──────────────────────────────────────── */
-  .countdown-wreath { width: clamp(240px, 74vw, 380px); opacity: .24; }
+  .countdown-wreath { width: clamp(240px, 74vw, 380px); opacity: .16; }
   .count-row { flex-wrap: nowrap; gap: clamp(.9rem, 3.5vw, 1.6rem); }
   .count-unit { min-width: 3.4rem; }
 
   /* ── № 10 closing ────────────────────────────────────────── */
-  .closing-swag { width: 108%; }
+  .closing-swag { width: 96%; }
   .closing-names { font-size: clamp(2.7rem, 12vw, 4.2rem); }
 }
 

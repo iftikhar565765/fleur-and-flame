@@ -101,9 +101,13 @@
       .to(card, { yPercent: -7, scale: 1.9, duration: 0.98, ease: 'power2.in' }, 1.32)
 
       /* 5 · the table setting fades — the invitation begins */
-      .to(fadingParts, { opacity: 0, duration: 0.5, ease: 'power1.out' }, 1.52)
-      .to(envelope, { scale: 1.94, duration: 0.2, ease: 'power1.in' }, 1.98)
-      .to(opening, { opacity: 0, duration: 0.62, ease: 'power1.inOut' }, 2.06);
+      .to(fadingParts, { opacity: 0, duration: 0.5, ease: 'power1.out' }, 1.42)
+
+      /* 6 · the lifted card dissolves as the page materialises behind it */
+      .to(envelope, { scale: 2.02, opacity: 0, duration: 0.58, ease: 'power2.in' }, 1.78)
+
+      /* 7 · the cover sheet lifts away, crossfading into the suite */
+      .to(opening, { opacity: 0, duration: 0.62, ease: 'power1.inOut' }, 1.86);
   }
 
   /* ── CSS-keyframes fallback (no GSAP) ────────────────────────── */

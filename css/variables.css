@@ -16,18 +16,18 @@
   --burgundy-deep: #3F402E;
   --wine:          #302F26;
   --crimson:       #777957;
-  --ivory:         #F8F5EC;
-  --paper-raised:  #FCFAF2;
-  --parchment:     #EFEADD;
-  --champagne:     #CBB98E;
-  --champagne-soft:#B6A274;
+  --ivory:         #FAF7EF;
+  --paper-raised:  #FDFBF4;
+  --parchment:     #F1EBDD;
+  --champagne:     #C9B78E;
+  --champagne-soft:#AE9C70;
   --olive:         #777957;
   --olive-deep:    #66684A;
-  --sage:          #A1A18A;
-  --rose:          #C5A0A0;
-  --ink:           #292920;
-  --ink-soft:      #4B4A3F;
-  --charcoal:      #6A695C;
+  --sage:          #A6A792;
+  --rose:          #C7A4A0;
+  --ink:           #2A2A22;
+  --ink-soft:      #504F43;
+  --charcoal:      #71705F;
   /* dark editorial atmosphere — the candlelit interludes */
   --night:         #22231B;
   --night-deep:    #161711;
@@ -48,16 +48,16 @@
   --font-body:    'DM Sans', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif;
 
   /* fluid scale */
-  --fs-eyebrow:   clamp(.6rem, 1.6vw, .72rem);
+  --fs-eyebrow:   clamp(.6rem, 1.6vw, .68rem);
   --fs-small:     clamp(.74rem, 1.8vw, .84rem);
   --fs-body:      clamp(1.02rem, 2.2vw, 1.1rem);
   --fs-lead:      clamp(1.12rem, 2.5vw, 1.24rem);
-  --fs-h3:        clamp(1.3rem, 3.6vw, 1.6rem);
-  --fs-h2:        clamp(2rem, 6.5vw, 3.4rem);
+  --fs-h3:        clamp(1.3rem, 3.6vw, 1.55rem);
+  --fs-h2:        clamp(2rem, 6.5vw, 3.2rem);
   --fs-h1:        clamp(2.6rem, 9.5vw, 5.4rem);
   --fs-script:    clamp(2.4rem, 9vw, 5.6rem);
-  --fs-script-xl: clamp(3.4rem, 14vw, 9.5rem);
-  --fs-date-hero: clamp(3.4rem, 13vw, 9rem);
+  --fs-script-xl: clamp(3.4rem, 14vw, 8.6rem);
+  --fs-date-hero: clamp(3.4rem, 13vw, 8.4rem);
 
   /* ── Layout ─────────────────────────────────────────────────── */
   --w-content: 78rem;
@@ -66,14 +66,14 @@
   --pad-section: clamp(4.2rem, 12vh, 8.5rem);
   --pad-gutter: clamp(1.25rem, 5vw, 3rem);
 
-  /* ── Hairlines & shadows — paper-thin, natural ───────────────── */
-  --hairline: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-  --hairline-strong: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  /* ── Hairlines & shadows — letterpress flat, paper-thin ──────── */
+  --hairline: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  --hairline-strong: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
   --hairline-light: 1px solid color-mix(in srgb, var(--ivory) 22%, transparent);
-  --shadow-paper: 0 1px 2px rgba(41, 41, 32, .06), 0 8px 22px rgba(41, 41, 32, .07);
-  --shadow-lift:   0 2px 5px rgba(41, 41, 32, .07), 0 22px 48px rgba(41, 41, 32, .12);
-  --shadow-flat:   0 1px 3px rgba(41, 41, 32, .07), 0 10px 26px rgba(41, 41, 32, .08);
-  --shadow-seal:   0 4px 10px rgba(47, 46, 30, .4), 0 14px 30px rgba(47, 46, 30, .24);
+  --shadow-paper: 0 1px 2px rgba(42, 42, 34, .04), 0 6px 18px rgba(42, 42, 34, .05);
+  --shadow-lift:   0 1px 3px rgba(42, 42, 34, .05), 0 18px 44px rgba(42, 42, 34, .09);
+  --shadow-flat:   0 1px 3px rgba(42, 42, 34, .05), 0 8px 20px rgba(42, 42, 34, .06);
+  --shadow-seal:   0 3px 8px rgba(47, 46, 30, .32), 0 12px 26px rgba(47, 46, 30, .2);
 
   /* ── Motion ──────────────────────────────────────────────────── */
   --ease-soft: cubic-bezier(.22, .61, .21, 1);

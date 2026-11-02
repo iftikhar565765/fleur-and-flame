@@ -23,12 +23,12 @@ window.HEIRLOOM = {
            countdown and the calendar files are correct on every
            guest's device, wherever they are in the world.
            Format: "YYYY-MM-DDTHH:MM:SS±HH:MM"
-           The sample below = 12 June 2027, 5:00 PM, GMT+1 (BST).
+           The sample below = 12 June 2027, 5:00 PM, GMT+1 (BST).
      display / words / numerals : how the date reads in the copy. */
   wedding: {
     iso: "2027-06-12T17:00:00+01:00",                              // EDIT
     endIso: "2027-06-13T00:30:00+01:00",                           // EDIT — end of the celebration
-    display: "Saturday, 12 June 2027 · 5:00 PM",                   // EDIT
+    display: "Saturday, 12 June 2027 · 5:00 PM",                   // EDIT
     zoneLabel: "",                                                 // EDIT — optional note for guests abroad, e.g. "BST"
     words: "Saturday · The Twelfth of June · Two Thousand Twenty-Seven", // EDIT
     numerals: "12 · 06 · 2027",                                    // EDIT
