@@ -45,9 +45,9 @@
 
   /* ── № 01 invitation ─────────────────────────────────────── */
   .invite-card { margin-inline: 0; }
-  .invite-card__spray { width: 132px; }
-  .invite-card__spray--tl { top: -22px; left: -18px; }
-  .invite-card__spray--br { bottom: -22px; right: -18px; }
+  .invite-card__spray { width: 116px; }
+  .invite-card__spray--tl { top: -30px; left: -26px; }
+  .invite-card__spray--br { bottom: -30px; right: -26px; }
   .invite-card__names { font-size: clamp(2.7rem, 12.5vw, 4.2rem); }
   .invite-actions { display: grid; grid-template-columns: 1fr; }
   .invitation-bloom { opacity: .32; }
