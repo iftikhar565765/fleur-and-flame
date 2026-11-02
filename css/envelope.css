@@ -10,9 +10,12 @@
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
-  place-items: center;
+  /* start + auto margins = safe centring: when the stack is taller
+     than the viewport it clips at the top, never hiding the Open
+     button or the skip control below                              */
+  place-items: start center;
   overflow: hidden;
-  padding: clamp(2.6rem, 6.5vh, 4.5rem) var(--pad-gutter);
+  padding: clamp(1.4rem, 4.5vh, 4.5rem) var(--pad-gutter);
   background:
     radial-gradient(58% 46% at 50% 42%, rgba(203, 185, 142, .12), transparent 68%),
     radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--sage) 12%, transparent), transparent 55%),
@@ -101,12 +104,15 @@
   z-index: 2;
   text-align: center;
   max-width: 46rem;
+  margin-block: auto; /* completes the safe centring pair */
 }
 
-.opening__eyebrow { margin-bottom: .9rem; }
+.opening__eyebrow { margin-bottom: clamp(.4rem, 1.4vh, .9rem); }
 
 .opening__names {
-  font-size: clamp(3.4rem, 7.2vw, 7.5rem);
+  /* the min() keeps the names inside the viewport height on short
+     or scaled screens, where 7.2vw alone would overflow the fold  */
+  font-size: clamp(2.6rem, min(7.2vw, 10.5vh), 7.5rem);
   margin: 0;
   color: var(--ink);
   text-wrap: balance;
@@ -116,10 +122,10 @@
 
 .envelope-stage {
   position: relative;
-  width: min(440px, 86vw, 56vh);
+  width: min(440px, 86vw, 50vh);
   /* the wax seal overhangs the card by ~13% of the stage height —
      the bottom margin must clear it, or the seal grazes the hint  */
-  margin: 1.9rem auto 3.3rem;
+  margin: clamp(.9rem, 2.4vh, 1.9rem) auto clamp(1.8rem, 5.4vh, 3.3rem);
 }
 
 .table-shadow {
@@ -307,7 +313,7 @@
   align-items: center;
   justify-content: center;
   gap: 1.1rem;
-  margin: 0 0 1.5rem;
+  margin: 0 0 clamp(.7rem, 2vh, 1.5rem);
   font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: .24em;
@@ -327,7 +333,7 @@
    second button crowding the same baseline                     */
 .opening__skip {
   display: block;
-  margin: 1rem auto 0;
+  margin: clamp(.5rem, 1.6vh, 1rem) auto 0;
   font-size: var(--fs-small);
   color: var(--charcoal);
   text-decoration: underline;
@@ -347,11 +353,28 @@ html.js #site {
 }
 
 /* while the envelope waits, the page is one fixed scene —
-   no scrolling into the still-hidden invitation below     */
+   no scrolling into the still-hidden invitation below.
+   The cover itself may scroll inside the viewport when a short
+   or scaled screen cannot fit the whole stack, so the Open
+   button and the skip control are always reachable; the corner
+   florals, glow and watermark stay pinned to the screen.       */
 html.js body.intro-pending {
   overflow: hidden;
   height: 100vh;
   height: 100svh;
+}
+
+html.js body.intro-pending .opening {
+  height: 100vh;
+  height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.js body.intro-pending .opening__florals,
+html.js body.intro-pending .opening__glow,
+html.js body.intro-pending .opening__watermark {
+  position: fixed;
 }
 
 body.intro-pending #site {
