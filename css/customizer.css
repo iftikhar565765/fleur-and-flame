@@ -983,6 +983,18 @@ body.preview-open .preview-footer { justify-content: center; }
 
 .preview-continue { min-width: 220px; text-align: center; }
 
+/* the publish control, gently called out the moment the proof
+   is confirmed — one gold ring, twice, then quiet              */
+.download-button.is-invited {
+  animation: publish-invite 1.25s var(--ease) 2;
+}
+
+@keyframes publish-invite {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 13px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
 /* canvas colour tooltip */
 
 .canvas-color-action {

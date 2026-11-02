@@ -1931,14 +1931,20 @@
      button instead of leaving the couple to hunt for the ✕       */
   if (previewContinue) previewContinue.addEventListener('click', function () {
     setPreviewOpen(false);
-    var target = (finishPublishButton && !finishPublishButton.hidden)
-      ? finishPublishButton : publishButton;
+    /* the header publish control is the one that is always on
+       screen — prefer it, fall back to the share-step button   */
+    var target = (publishButton && publishButton.offsetParent) ? publishButton
+      : (finishPublishButton && finishPublishButton.offsetParent) ? finishPublishButton
+      : publishButton;
     if (target) {
       try { target.focus({ preventScroll: true }); } catch (error) { target.focus(); }
       if (target.scrollIntoView) {
         try { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         catch (error) { target.scrollIntoView(); }
       }
+      /* one quiet pulse so the eye lands on Publish at once */
+      target.classList.add('is-invited');
+      window.setTimeout(function () { target.classList.remove('is-invited'); }, 2800);
     }
   });
   document.addEventListener('keydown', function (event) {
