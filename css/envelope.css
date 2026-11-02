@@ -339,6 +339,14 @@
 
 #site { opacity: 1; }
 
+/* while the envelope waits, the page is one fixed scene —
+   no scrolling into the still-hidden invitation below     */
+html.js body.intro-pending {
+  overflow: hidden;
+  height: 100vh;
+  height: 100svh;
+}
+
 body.intro-pending #site {
   opacity: 0;
   pointer-events: none;
