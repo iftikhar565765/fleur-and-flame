@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE HEIRLOOM FILM · envelope.js
-   The opening experience — wax seal, flap, letter, handover.
+   FLEUR & FLAME · envelope.js
+   The opening experience — the wax seal breaks, the vellum band
+   slides away, and the card is lifted from the garden table.
    · GSAP choreography when GSAP is available
    · Pure-CSS keyframe fallback when GSAP fails to load
    · Instant, motion-free handover under prefers-reduced-motion
@@ -26,11 +27,12 @@
     return;
   }
 
-  var letter = envelope.querySelector('.envelope__letter');
-  var flap = envelope.querySelector('.envelope__flap');
-  var seal = envelope.querySelector('.envelope__seal');
-  var fadingParts = '.envelope__pocket, .envelope__back, .envelope__flap, ' +
-                    '.envelope__stamps, .envelope-shadow, .envelope-lace';
+  var card = envelope.querySelector('.envelope__card');
+  var band = envelope.querySelector('.envelope__band');
+  var sealWrap = envelope.querySelector('.envelope__seal-wrap');
+  var fadingParts = '.opening__eyebrow, .opening__names, .opening__hint, ' +
+                    '.opening__florals, .opening__glow, .opening__watermark, ' +
+                    '.table-shadow, .envelope__stamp';
 
   var reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   var hasGsap = typeof window.gsap !== 'undefined';
@@ -75,39 +77,38 @@
   function openWithGsap() {
     envelope.classList.add('is-open');
 
-    gsap.set(letter, { yPercent: 4, scale: 1 });
-    gsap.set(flap, { rotationX: 0, transformOrigin: '50% 0%' });
-    gsap.set(seal, { xPercent: -50, yPercent: -50, rotation: -3 });
+    gsap.set(envelope, { rotation: -1.6 });
+    gsap.set(card, { yPercent: 0, scale: 1 });
+    gsap.set(band, { xPercent: 0, opacity: 1 });
+    gsap.set(sealWrap, { rotation: 0, y: 0, scale: 1, opacity: 1 });
 
     timeline = gsap.timeline({ onComplete: function () { completeIntro(false); } });
 
     timeline
-      /* 1 · the envelope acknowledges the touch */
-      .to(envelope, { scale: 1.02, duration: 0.32, ease: 'power2.out' })
+      /* 1 · the card acknowledges the touch */
+      .to(envelope, { rotation: 0, scale: 1.025, duration: 0.38, ease: 'power2.out' })
 
-      /* 2 · the wax seal loosens and falls away */
-      .to(seal, {
-        rotation: 15, y: -20, scale: 0.9, opacity: 0,
-        duration: 0.6, ease: 'power1.in'
-      }, 0.12)
+      /* 2 · the wax seal cracks and drops from the card */
+      .to(sealWrap, {
+        rotation: 26, y: 84, scale: 0.7, opacity: 0,
+        duration: 0.72, ease: 'power1.in'
+      }, 0.1)
 
-      /* 3 · the flap opens — z-index drops mid-flip so it passes
-            behind the pocket, exactly like paper would            */
-      .to(flap, { rotationX: -105, duration: 1.3, ease: 'power2.inOut' }, 0.78)
-      .set(flap, { zIndex: 0 }, 1.88)
+      /* 3 · the vellum band slides away like a sleeve */
+      .to(band, { xPercent: 125, opacity: 0, duration: 0.9, ease: 'power2.in' }, 0.46)
 
-      /* 4 · the letter rises out of the pocket */
-      .to(letter, { yPercent: -58, duration: 0.95, ease: 'power2.out' }, 1.72)
+      /* 4 · the card is lifted from the table toward the viewer */
+      .to(card, { yPercent: -7, scale: 1.9, duration: 0.98, ease: 'power2.in' }, 1.32)
 
-      /* 5 · the letter grows toward the viewer — the film begins */
-      .to(letter, { yPercent: -72, scale: 2.05, duration: 0.95, ease: 'power2.in' }, 2.7)
-      .to(fadingParts, { opacity: 0, duration: 0.55, ease: 'power1.out' }, 2.75)
-      .to(opening, { opacity: 0, duration: 0.7, ease: 'power1.inOut' }, 2.9);
+      /* 5 · the table setting fades — the invitation begins */
+      .to(fadingParts, { opacity: 0, duration: 0.5, ease: 'power1.out' }, 1.52)
+      .to(envelope, { scale: 1.94, duration: 0.2, ease: 'power1.in' }, 1.98)
+      .to(opening, { opacity: 0, duration: 0.62, ease: 'power1.inOut' }, 2.06);
   }
 
   /* ── CSS-keyframes fallback (no GSAP) ────────────────────────── */
   function openWithFallback() {
-    var wait = reducedQuery.matches ? 300 : 3300;
+    var wait = reducedQuery.matches ? 300 : 3100;
     envelope.classList.add('is-fallback-open');
     window.setTimeout(function () { completeIntro(true); }, wait);
   }
@@ -131,7 +132,7 @@
     else                           openWithFallback();
   }
 
-  /* Inside the customizer preview the envelope is an editable scene,
+  /* Inside the customizer preview the card is an editable scene,
      not a control — clicks select & recolour its parts instead of
      opening it. Guests (top-level page) keep the full choreography. */
   var inEditor = window.parent !== window;
@@ -165,16 +166,19 @@
       try { ScrollTrigger.getAll().forEach(function (t) { t.kill(); }); } catch (e) {}
     }
 
-    // Reset the envelope to its sealed state.
+    // Reset the card to its sealed state.
     envelope.classList.remove('is-open', 'is-fallback-open');
-    [letter, flap, seal].forEach(function (el) {
+    [card, band, sealWrap].forEach(function (el) {
       if (el && el.style) el.removeAttribute('style');
     });
-    envelope.querySelectorAll('.envelope__pocket, .envelope__back, .envelope__flap, ' +
-                               '.envelope__stamps, .envelope-shadow, .envelope-lace')
+    envelope.querySelectorAll('.envelope__stamp').forEach(function (el) {
+      el.removeAttribute('style');
+    });
+    opening.querySelectorAll('.opening__eyebrow, .opening__names, .opening__hint, ' +
+      '.opening__florals, .opening__glow, .opening__watermark, .table-shadow')
       .forEach(function (el) { el.removeAttribute('style'); });
     if (hasGsap) {
-      gsap.set([letter, flap, seal], { clearProps: 'all' });
+      gsap.set([card, band, sealWrap], { clearProps: 'all' });
       gsap.set(envelope, { clearProps: 'all' });
     }
 

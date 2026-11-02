@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "the-heirloom-film",
+  "name": "fleur-and-flame",
   "main": "worker.js",
   "compatibility_date": "2026-09-01",
   "assets": {
@@ -11,8 +11,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "heirloom-invitations",
-      "database_id": "86c8561a-176d-43bf-baae-258de6869ec5"
+      "database_name": "fleur-invitations",
+      "database_id": "REPLACE_WITH_YOUR_NEW_D1_DATABASE_ID"
     }
   ]
 }

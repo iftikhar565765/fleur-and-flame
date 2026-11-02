@@ -1,173 +1,80 @@
-# The Heirloom Film — a burgundy-heirloom wedding invitation
+# Fleur & Flame — a candlelit garden wedding invitation
 
-A cinematic wedding invitation that opens like a letter kept in a family
-archive: a burgundy envelope, a wax seal, and an editorial invitation built
-purely from typography and hand-drawn SVG ornament — no photography, no image
-storage, nothing to break. The frontend is HTML, CSS and vanilla JavaScript.
-The recommended hosting is **Cloudflare Pages + Pages Functions + D1**.
+A one-page wedding invitation suite: a wax-sealed card opening onto pressed
+botanicals, ten scenes (invitation, story, save-the-date, details, palette,
+the day, venue, RSVP, countdown, closing), a working reply form, and a
+seven-step visual editor ("Invitation Atelier") at `/customize` that
+publishes the finished invitation to a shareable link.
 
-This is a sellable digital product: payment happens outside the platform
-(bank transfer, Stripe Payment Link, WhatsApp — anything). The buyer opens
-`customize.html`, personalises the invitation in the visual editor, presses
-**Publish invitation**, and receives a unique shareable link for their guests.
+Built as a **static site + tiny API** on **Cloudflare Workers**:
 
-## What changed in this edition
+- Static assets (HTML/CSS/JS/art) served from the edge with content-hash cache busting
+- `POST /api/publish` — stores the invitation config in D1, returns a guest link + edit token
+- `GET  /api/publish` — loads a published invitation (`?action=load|version`)
+- `POST /api/rsvp` — collects guest replies into D1 (honeypot + length checks)
+- Guest replies are visible in the editor and at `/replies.html`
 
-- **No photographs anywhere.** The gallery ("Visual Diary") and every photo
-  field were removed by design. The story chapter is now a keepsake folio of
-  letterpress-style quote cards and handwritten notes; the details chapter
-  pairs the ledger with a wax-seal note card; the venue scene is a candlelit
-  night layout with a lace ornament. Every ornament is inline SVG.
-- **No R2.** The image-upload endpoints and the R2 binding were removed. The
-  whole product now needs exactly **one** Cloudflare resource: a D1 database.
-- **Sell-ready customizer.** New editor chapters for story & wording,
-  wedding-day words, RSVP party-size limit and reply-by date. The reply
-  notification email is now optional. An optional **access code** gate can
-  restrict who may publish (see *Selling the product*).
+No user-uploaded images anywhere: every decorative asset is a shipped,
+background-removed PNG in `assets/art/`, so the site is fully CDN-cacheable
+and nothing depends on third-party object storage.
 
-## Run it locally
+---
 
-Frontend only (open straight in a browser):
+## The sample invitation
 
-```
-open index.html        # or double-click it
-```
+Ships with a tasteful sample couple (Margaux & Theodore, June 2027, a walled
+garden in Gloucestershire). All sample copy lives in `js/config.js` — the
+editor can change every string without touching code.
 
-Full product with working publish + RSVP (needs Node.js 18+):
+| Piece | Where |
+| --- | --- |
+| Couple, date, venue, copy, palette, moments | `js/config.js` |
+| The page structure | `index.html` |
+| Theme presets (olive / rose / burgundy / midnight) | `js/main.js` → `themePresets` |
+| Type pairings shown in the editor | `js/customizer.js` → `TYPE_PAIRINGS` |
 
-```
-npm install          # once — installs wrangler
-npm run dev          # builds, applies local D1 migrations, serves on :8788
-# open http://127.0.0.1:8788/customize.html
-```
+## Local development
 
-(`npm run dev` serves through `wrangler dev`, which reads the D1 binding
-straight from `wrangler.jsonc`.)
-
-## Deploy to Cloudflare (Workers + static assets)
-
-The project deploys as a **Worker** with static assets: `worker.js` routes
-`/api/*` to the request handlers in `functions/`, and every page, script
-and stylesheet is served as a static asset from the CDN edge. The live
-URL is `https://the-heirloom-film.<your-subdomain>.workers.dev`.
-
-Go-live checklist, in order:
-
-1. Push this repository to GitHub (`main` branch).
-2. Create the D1 database **and apply the migration to it** — without the
-   tables the publish and RSVP endpoints would return HTTP 500:
-
-   ```
-   npx wrangler login
-   npx wrangler d1 create heirloom-invitations     # skip if it exists already
-   npx wrangler d1 migrations apply heirloom-invitations --remote
-   ```
-
-   The database id in `wrangler.jsonc` is the production database for this
-   project; if you create a fresh database, paste its id into
-   `wrangler.jsonc` before the next step.
-
-   No tables in the remote database is the #1 cause of "HTTP 500" on the
-   live site while everything worked locally — run the command above before
-   smoke-testing.
-3. Cloudflare dashboard → **Workers & Pages → Create application →
-   Workers → Connect to Git**, pick the repository. Accept the defaults:
-   build command `node scripts/build.mjs`, deploy command
-   `npx wrangler deploy`. Every push to `main` then builds and deploys
-   automatically, and the D1 binding, the static-asset directory and the
-   worker entry point are all read from `wrangler.jsonc` on deploy —
-   nothing needs to be configured in the dashboard.
-4. Bindings need no dashboard setup — `wrangler.jsonc` already declares the
-   D1 database as `DB` and it is applied on every deploy. That is the only
-   required binding.
-5. Optional secrets (**Settings → Variables and Secrets**): `ACCESS_CODE`
-   (sells the editor behind a code), `RESEND_API_KEY` + `RSVP_FROM`
-   (emails each reply to the couple). See *Selling the product* below.
-6. Redeploy and smoke-test: open
-   `https://the-heirloom-film.<your-subdomain>.workers.dev/customize.html`,
-   publish a test invitation, open its guest link, send a test reply, and
-   check it appears under **Guest replies** in the editor.
-
-Alternative one-command deploy (direct upload, no Git connection) after
-`npx wrangler login`:
-
-```
-npm run deploy       # builds dist, then `wrangler deploy`
+```bash
+npm install
+npm run dev            # build + local D1 migration + wrangler dev on :8788
 ```
 
-The live editor is
-`https://the-heirloom-film.<your-subdomain>.workers.dev/customize.html`;
-published invitations live at
-`https://the-heirloom-film.<your-subdomain>.workers.dev/?invite=ID`.
+Open `http://localhost:8788` for the invitation and
+`http://localhost:8788/customize` for the editor. Without any environment
+variables the reply form runs in its honest demonstration mode (validates,
+previews, sends nothing).
 
-Static assets are served directly from the edge; the Worker only runs for
-`/api/*` calls, so 99% of requests never touch a Worker instance.
+## Go-live checklist (new Cloudflare project)
 
-## Selling the product
+1. `npm install`
+2. Create the database:
+   `npx wrangler d1 create fleur-invitations`
+3. Paste the returned `database_id` into `wrangler.jsonc`
+   (replace `REPLACE_WITH_YOUR_NEW_D1_DATABASE_ID`).
+4. Apply the schema:
+   `npm run db:migrate:remote`
+5. Deploy:
+   `npm run deploy`
+6. Optional environment secrets (`wrangler secret put …` or the dashboard):
+   - `ACCESS_CODE` — when set, first publish requires this code
+   - `RESEND_API_KEY` + `RSVP_FROM` — reply-notification email via resend.com
+     (without them replies are still stored and shown in the editor)
+7. After the first deploy, update the two `og:image` URLs in `index.html`
+   to your real `*.workers.dev` (or custom-domain) address so shared
+   links get the correct preview card.
 
-Payment is collected **outside** this platform. Your options, in order of
-tightness:
+## Editing an invitation you already published
 
-1. **Open editor (default).** Anyone with the link can publish. Fine when you
-   sell the link personally and trust buyers.
-2. **Access-code gate (recommended).** In the Worker project →
-   **Settings → Variables and Secrets**, add a secret `ACCESS_CODE` with any
-   string you choose. The editor then asks buyers to paste that code before
-   their first publish — you hand the code over only after payment. The code
-   is checked server-side by the publish Function.
-3. Each published invitation gets a **unique id and guest link**. The buyer's
-   browser stores the private edit token (`localStorage`), so they return to
-   `customize.html?edit=ID` on the same browser to keep editing. Advise buyers
-   to also press **Download a backup** — without the browser's site data the
-   token cannot be recovered in this prototype.
+The publish step returns a guest link and keeps an edit token in this
+browser's local storage. Reopen `/customize`, make changes, publish again —
+the guest link stays the same. You can also save/load a JSON copy of the
+invitation from the editor's ⋯ menu.
 
-## Personalise (10 minutes)
+## Accessibility & honesty
 
-Open **customize.html**. The sidebar chapters cover everything shared:
-names & monogram, wedding date & time (with the venue's UTC offset kept for
-calendars), location and Maps link, story & wording, the opening envelope,
-wedding-day words, RSVP limits, colour theme & palette, and typography.
-Unique wording can also be edited directly on the live preview — click any
-text to edit it in place, click an element to recolour it.
-
-Press **Publish invitation** once to create the unique guest link. After
-that, edits save automatically and guests see changes within a few seconds.
-
-### Dates & the countdown
-
-`wedding.iso` carries an explicit UTC offset — `"2027-09-18T16:00:00+02:00"`
-is 4:00 PM in GMT+2. The countdown, the .ics download and the Google Calendar
-link all derive from that one value. An invalid date shows a graceful
-message; a past date switches to the celebration wording.
-
-### Wedding-day words
-
-`moments` is a list of single words displayed in the framed wedding
-programme. Empty the list to hide the whole scene.
-
-## Publishing and RSVP delivery
-
-- `functions/api/publish.js` — creates and updates invitation records in D1.
-  Owner tokens are random; only their SHA-256 hashes are stored. The public
-  endpoint never exposes the token or the reply-notification email. Public
-  pages poll for changed revisions every three seconds.
-- `functions/api/rsvp.js` — validates replies (name, attendance, party size
-  against the invitation's limit), rate-limits per IP (5 per 10 minutes),
-  stores replies in D1. Guests are never asked for an email address. When the
-  couple enters a notification email in the editor, every reply is emailed to
-  that address the moment it arrives — add the two Worker environment
-  variables `RESEND_API_KEY` (a Resend API key) and `RSVP_FROM`
-  (a verified sending address such as `RSVP <rsvp@yourdomain.com>`) to switch
-  delivery on. Replies are always visible in the editor under **Guest
-  replies** (latest 100), with or without email delivery.
-- Publishing is rate-limited to 10 new invitations per hour per IP.
-
-## Accessibility & resilience
-
-- The envelope is a real `<button>`; the opening is escapable via the open
-  control, the skip link, or the Escape key.
-- `prefers-reduced-motion` swaps the choreography for a quiet fade.
-- Without JS the cover becomes the first section of an ordinary readable
-  page; a watchdog reveals the site even if a script fails.
-- If the GSAP CDN is unreachable, a pure-CSS keyframe sequence opens the
-  envelope instead. No icon library — every ornament is inline SVG.
+- The opening is escapable three ways (the card, the Open button, Escape)
+  and collapses instantly under `prefers-reduced-motion`
+- The sample invitation always says, plainly, that replies are not collected
+- No tracking, no cookies, no external requests beyond Google Fonts and the
+  GSAP CDN (both optional — the site works without them)

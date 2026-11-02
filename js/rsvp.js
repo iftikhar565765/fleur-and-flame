@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE HEIRLOOM FILM · rsvp.js
+   FLEUR & FLAME · rsvp.js
    The response card.
    · Endpoint mode  — POSTs JSON to the configured URL, reports
      real success and failure states.

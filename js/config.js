@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE HEIRLOOM FILM · config.js
+   FLEUR & FLAME · config.js
    ---------------------------------------------------------------
    Main personalisation data for the site and visual editor.
    Longer copy, palette, and theme are editable here. Values
@@ -8,14 +8,14 @@
    ═══════════════════════════════════════════════════════════════ */
 
 window.HEIRLOOM = {
-  templateId: "heirloom-film",
+  templateId: "fleur-and-flame",
 
   /* ── The couple — SAMPLE content, replace with your names ────── */
   couple: {
-    partnerOne: "Amelia",                    // SAMPLE
-    partnerTwo: "Julien",                   // SAMPLE
-    initials:  "A · J",                     // SAMPLE — used on seals & monograms
-    namesLine: "Amelia & Julien"            // SAMPLE — used across the site
+    partnerOne: "Margaux",                   // SAMPLE
+    partnerTwo: "Theodore",                  // SAMPLE
+    initials:  "M · T",                      // SAMPLE — used on seals & monograms
+    namesLine: "Margaux & Theodore"          // SAMPLE — used across the site
   },
 
   /* ── The wedding date & time ─────────────────────────────────
@@ -23,22 +23,22 @@ window.HEIRLOOM = {
            countdown and the calendar files are correct on every
            guest's device, wherever they are in the world.
            Format: "YYYY-MM-DDTHH:MM:SS±HH:MM"
-           The sample below = 18 Sept 2027, 4:00 PM, GMT+2 (CEST).
+           The sample below = 12 June 2027, 5:00 PM, GMT+1 (BST).
      display / words / numerals : how the date reads in the copy. */
   wedding: {
-    iso: "2027-09-18T16:00:00+02:00",                              // EDIT
-    endIso: "2027-09-19T00:00:00+02:00",                           // EDIT — end of the celebration
-    display: "Saturday, 18 September 2027 · 4:00 PM",              // EDIT
-    zoneLabel: "",                                                 // EDIT — optional note for guests abroad, e.g. "CET"
-    words: "Saturday · The Eighteenth of September · Two Thousand Twenty-Seven", // EDIT
-    numerals: "18 · 09 · 2027",                                    // EDIT
-    eventTitle: "Amelia & Julien — Wedding"                        // EDIT (calendar entry)
+    iso: "2027-06-12T17:00:00+01:00",                              // EDIT
+    endIso: "2027-06-13T00:30:00+01:00",                           // EDIT — end of the celebration
+    display: "Saturday, 12 June 2027 · 5:00 PM",                   // EDIT
+    zoneLabel: "",                                                 // EDIT — optional note for guests abroad, e.g. "BST"
+    words: "Saturday · The Twelfth of June · Two Thousand Twenty-Seven", // EDIT
+    numerals: "12 · 06 · 2027",                                    // EDIT
+    eventTitle: "Margaux & Theodore — Wedding"                     // EDIT (calendar entry)
   },
 
   /* ── The venue ──────────────────────────────────────────────── */
   venue: {
-    name: "The Linden Estate",                    // SAMPLE
-    address: "12 Linden Lane, Willowbrook",       // SAMPLE
+    name: "The Walled Garden at Merefield",       // SAMPLE
+    address: "Merefield Manor, Gloucestershire",  // SAMPLE
     mapsQuery: "",                                // optional Maps search override
     /* A full URL here overrides the map link built above, e.g. an
        exact Google Maps place link or an Apple Maps URL.          */
@@ -48,10 +48,10 @@ window.HEIRLOOM = {
   /* ── Copy shown throughout the invitation ────────────────────
      The visual editor can change these values without editing HTML. */
   content: {
-    pageTitle: "Amelia & Julien · 18 September 2027 — A Love Letter",
-    pageDescription: "Amelia and Julien request the pleasure of your company at The Linden Estate, Willowbrook, on Saturday the eighteenth of September 2027. Open your invitation.",
-    socialTitle: "Amelia & Julien — An Invitation · 18.09.2027",
-    socialDescription: "An heirloom envelope, a wax seal, and a love story — you are cordially invited.",
+    pageTitle: "Margaux & Theodore · 12 June 2027 — A Candlelit Garden Invitation",
+    pageDescription: "Margaux and Theodore request the pleasure of your company in the walled garden at Merefield, Gloucestershire, on Saturday the twelfth of June 2027. Open your invitation.",
+    socialTitle: "Margaux & Theodore — An Invitation · 12.06.2027",
+    socialDescription: "Pressed flowers, candlelight and a garden dinner — you are cordially invited.",
     navStory: "Story",
     navDetails: "Details",
     navVenue: "Venue",
@@ -66,19 +66,19 @@ window.HEIRLOOM = {
     menuRsvp: "Kindly Respond",
     menuCountdown: "The Countdown",
     menuClosing: "A Closing Note",
-    openingEyebrow: "A love letter from",
+    openingEyebrow: "A candlelit garden invitation from",
     openingHint: "You are cordially invited",
     openButton: "Open the Invitation",
     skipButton: "Skip straight to the invitation",
     envelopeAddress: "friends & family",
     invitationEyebrow: "Together with their families",
-    invitationLead: "request the honour of your presence as they exchange vows and begin their greatest adventure together.",
-    invitationVenueSuffix: "· Willowbrook",
+    invitationLead: "request the pleasure of your company as they exchange vows in the walled garden and dine under the first stars of summer.",
+    invitationVenueSuffix: "· Gloucestershire",
     storyKicker: "№ 02 · Their Story",
     storyTitle: "Our",
     storyTitleScript: "Story",
-    storyParagraphOne: "Every love story deserves a beautiful beginning, and ours started in the most ordinary of places — a crowded bookshop, a shared table, and one conversation neither of us wanted to end.",
-    storyParagraphTwo: "Three cities, a thousand small adventures and one borrowed umbrella later, we are finally writing the chapter we always dreamed of. We would love nothing more than to have you beside us as we turn the page.",
+    storyParagraphOne: "Every garden begins with a single seed, and ours was planted on a rainy Tuesday — a shared umbrella, a closed bookshop, and one conversation that outlasted the weather.",
+    storyParagraphTwo: "Six years, three flats and one very opinionated cat later, we are finally planting the garden we always talked about. Nothing would mean more than to have you standing beside us when we do.",
     storyQuote: "To love and be loved is to feel the sun from both sides.",
     storyQuoteLabel: "— a page from our notebook",
     storyNote: "somewhere between hello & forever",
@@ -88,7 +88,7 @@ window.HEIRLOOM = {
     storyCaptionFour: "the long way home",
     storyAside: "the beginning of always",
     saveDateTitle: "Save the Date",
-    saveDateCrossing: "forever is coming",
+    saveDateCrossing: "golden hour, golden years",
     saveDateNote: "The date is set. Add it to your calendar and keep these details close.",
     calendarDownloadLabel: "Add to Calendar",
     calendarGoogleLabel: "Google Calendar",
@@ -97,11 +97,11 @@ window.HEIRLOOM = {
     detailsTitleSecond: "Details",
     detailsIntro: "The day, at a glance.",
     ceremonyLabel: "The Ceremony",
-    ceremonyTime: "Four o'clock",
-    ceremonyNote: "Vows beneath the linden trees, weather kindly permitting.",
+    ceremonyTime: "Five o'clock",
+    ceremonyNote: "Vows between the rose borders, weather kindly permitting.",
     receptionLabel: "The Reception",
-    receptionTime: "Six thirty",
-    receptionNote: "Dinner, speeches and dancing in the orangery.",
+    receptionTime: "Half past six",
+    receptionNote: "A candlelit dinner and dancing under the open sky.",
     kindlyReplyLabel: "Kindly Reply",
     kindlyReplyNote: "Kindly send your response using the reply form further below.",
     particularsEyebrow: "The Particulars",
@@ -112,11 +112,11 @@ window.HEIRLOOM = {
     particularsAttireNote: "Soft tones are welcome — wear what makes you feel wonderful.",
     particularsCarriagesLabel: "The Carriages",
     particularsCarriagesTime: "At midnight",
-    particularsCarriagesNote: "The last dance ends as the clocks strike twelve.",
+    particularsCarriagesNote: "The last dance ends as the candles burn low.",
     paletteKicker: "№ 05 · A Note on Colour",
     paletteTitleFirst: "The wedding",
     paletteTitleSecond: "palette",
-    paletteIntro: "A study in garden greens, softened rose and candlelit neutrals — chosen to feel at home beneath the linden trees.",
+    paletteIntro: "A study in sage and dusty rose, warmed by candlelight — chosen to feel at home between the garden walls.",
     dressCodeLabel: "Attire · Garden celebration",
     dressCodeTitle: "Garden formal",
     dressCodeNote: "A little dressed up, a little garden-ready. Soft tones are welcome, but the palette is only a suggestion — wear what makes you feel wonderful.",
@@ -124,11 +124,11 @@ window.HEIRLOOM = {
     weddingDayTitleFirst: "The Wedding",
     weddingDayTitleSecond: "Day",
     venueKicker: "№ 07 · The Place",
-    venueDescription: "A storied country estate wrapped in rose gardens and old linden trees — where candlelit dinners drift slowly into long summer evenings.",
+    venueDescription: "A four-hundred-year-old walled garden wrapped in roses and old apple trees — where long tables, candlelight and string lights drift slowly into warm summer nights.",
     venueCeremonyLabel: "Ceremony",
-    venueCeremonyText: "in the garden, at four o'clock",
+    venueCeremonyText: "in the rose garden, at five o'clock",
     venueReceptionLabel: "Reception",
-    venueReceptionText: "dinner & dancing in the orangery",
+    venueReceptionText: "dinner & dancing beneath the string lights",
     mapButton: "View Location",
     rsvpKicker: "№ 08 · Your Reply",
     rsvpTitle: "Kindly Respond",
@@ -158,25 +158,25 @@ window.HEIRLOOM = {
     countdownTitle: "until we say",
     countdownPromise: "“I do”",
     closingScript: "with all our love",
-    closingMessage: "Thank you, from the bottom of our hearts, for being part of our story. We cannot wait to celebrate with you beneath the linden trees.",
-    footerTagline: "A day together, forever held."
+    closingMessage: "Thank you, from the bottom of our hearts, for being part of our story. We cannot wait to celebrate with you among the roses and the candlelight.",
+    footerTagline: "A garden, a flame, a forever."
   },
 
   palette: [
-    { name: "Ivory", color: "#EFE7D8" },
-    { name: "Linden", color: "#777957" },
-    { name: "Rose", color: "#C5A0A0" },
-    { name: "Oxblood", color: "#5D2029" },
-    { name: "Champagne", color: "#CDBB9A" }
+    { name: "Linen",   color: "#F8F5EC" },
+    { name: "Sage",    color: "#A1A18A" },
+    { name: "Dusty Rose", color: "#C5A0A0" },
+    { name: "Candlelight", color: "#CBB98E" },
+    { name: "Garden Green", color: "#53513A" }
   ],
-  theme: "burgundy",
+  theme: "olive",
   themeColors: {},
   fonts: {
-    editorial: "bodoni",
-    display: "cormorant",
-    script: "pinyon",
-    hand: "la-belle",
-    body: "jost"
+    editorial: "playfair",
+    display: "ebGaramond",
+    script: "greatVibes",
+    hand: "caveat",
+    body: "dmSans"
   },
 
   /* ── Wedding-day moments — SAMPLE words for the wedding programme.
@@ -194,12 +194,12 @@ window.HEIRLOOM = {
   rsvp: {
     endpoint: "",
     maxGuests: 2,
-    deadline: "the first of August, 2027"           // SAMPLE
+    deadline: "the first of May, 2027"             // SAMPLE
   },
 
   /* ── Countdown wording (invalid or passed dates) ─────────────── */
   countdown: {
-    invalidMessage: "The exact hour is still being sealed in wax — see the details below.",
+    invalidMessage: "The exact hour is still being pressed between the pages — see the details below.",
     pastMessage: "The celebration has begun — thank you for being part of our story."
   },
 

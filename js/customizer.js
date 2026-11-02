@@ -513,7 +513,7 @@
   }
 
   function prepareConfigForPublish() {
-    config.templateId = config.templateId || 'heirloom-film';
+    config.templateId = config.templateId || 'fleur-and-flame';
     sendPreview();
     return Promise.resolve(clone(config));
   }

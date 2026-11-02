@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE HEIRLOOM FILM · main.js
-   Content injection · navigation · countdown · wedding-day words ·
-   calendar files · reveals · parallax · audio · replay.
-   Everything degrades gracefully:
+   FLEUR & FLAME · main.js
+   Content injection · navigation · palette swatches · wedding-day
+   string of lights · countdown · calendar files · reveals ·
+   parallax · audio. Everything degrades gracefully:
    · no GSAP      → reveals still run (CSS + IntersectionObserver)
    · reduced motion → no scroll effects, countdown still runs
    · no JS at all → the page reads fully (see README)
@@ -18,7 +18,7 @@
 
   /* ══ 1 · CONTENT INJECTION (progressive enhancement) ═══════════
      The copy lives in index.html; config values refine it. If a
-     [data-content] key exists in config.content below, its string
+     [data-content] key exists in config below, its string
      replaces the text. Keys map to the config sections.           */
   function getConfigValue(path, source) {
     return path.split('.').reduce(function (value, key) {
@@ -83,6 +83,7 @@
     injectContent();
     applyColorEdits();
     applyHiddenElements();
+    renderPalette();
     renderMoments();
     initCountdown();
     initMapLink();
@@ -172,11 +173,11 @@
     Object.keys(fontFamilies).forEach(function (role) {
       var choices = fontFamilies[role];
       var selected = choices[fonts[role]] || choices[{
-        editorial: 'bodoni',
-        display: 'cormorant',
-        script: 'pinyon',
-        hand: 'laBelle',
-        body: 'jost'
+        editorial: 'playfair',
+        display: 'ebGaramond',
+        script: 'greatVibes',
+        hand: 'caveat',
+        body: 'dmSans'
       }[role]];
       document.documentElement.style.setProperty('--font-' + role, selected);
     });
@@ -221,55 +222,57 @@
       if (hex) return hex;
       current = current.parentElement;
     }
-    return '#18070b';
+    return '#22231b';
   }
 
-  /* Removable pieces of the opening & keepsake — keyed in HTML via
-     data-element-key and hidden through config.hiddenElements.      */
+  /* Removable & recolourable pieces of the suite — keyed in HTML
+     via data-element-key and hidden through config.hiddenElements. */
   var elementLabels = {
-    'opening-watermark': 'Opening watermark',
+    'opening-florals-top': 'Pressed florals · top',
+    'opening-florals-bottom': 'Pressed florals · bottom',
+    'opening-glow': 'Candle glow',
+    'opening-watermark': 'Ampersand watermark',
     'opening-eyebrow': 'Opening introduction',
     'opening-names': 'Opening names',
-    'envelope-lace': 'Envelope lace',
-    'envelope-shadow': 'Envelope shadow',
-    'envelope-letter': 'Envelope letter',
-    'envelope-address': 'Envelope address',
-    'envelope-flap': 'Envelope flap',
-    'envelope-stamps': 'Postage stamps',
+    'envelope-shadow': 'Card shadow',
+    'envelope-stamps': 'Postage stamp',
+    'envelope-flap': 'Vellum band',
+    'envelope-address': 'Addressee line',
     'envelope-seal': 'Wax seal',
     'opening-hint': 'Invitation hint',
     'open-button': 'Open button',
+    'invite-spray-top': 'Card spray · top',
+    'invite-spray-bottom': 'Card spray · bottom',
     'folio-quote': 'Keepsake quote card',
     'folio-note-one': 'Folio note i',
     'folio-note-two': 'Folio note ii',
     'folio-note-three': 'Folio note iii',
-    'story-garland-top': 'Story garland',
-    'story-garland-bottom': 'Story garland (bottom)',
+    'story-garland-top': 'Story swag',
+    'story-garland-bottom': 'Story pressed bloom',
     'story-caption': 'Story inscription',
     'story-note': 'Story handwritten note',
     'story-keepsake': 'Stamp & postmark',
+    'std-glow': 'Candlelight wash',
+    'std-candles': 'The candles',
     'std-note': 'Save-the-date note',
     'std-seal': 'Save-the-date seal',
     'detail-ceremony': 'Details · ceremony',
     'detail-reception': 'Details · reception',
     'detail-reply': 'Details · kindly reply',
-    'details-art': 'Details ornamental crest',
-    'details-art-frame': 'Crest · plate frame',
-    'details-art-arch': 'Crest · linden wreath',
-    'details-art-drop': 'Crest · hanging drop',
-    'details-art-rings': 'Crest · wedding rings',
-    'details-art-mono': 'Crest · monogram',
-    'details-art-date': 'Crest · date ribbon',
-    'details-art-sparkles': 'Crest · sparkles',
+    'details-bouquet': 'The bouquet',
+    'details-arch': 'Monogram arch',
+    'palette-swatches': 'Palette swatches',
     'palette-dresscode': 'Dress code card',
-    'day-words': 'Wedding-day words',
+    'day-words': 'String of lights',
+    'venue-lights': 'String lights',
+    'venue-ornament': 'Venue ornament',
     'rsvp-watermark': 'RSVP watermark',
     'rsvp-ornament': 'RSVP ornament',
     'countdown-clock': 'Countdown clock',
-    'closing-garland': 'Closing garland',
+    'countdown-wreath': 'Countdown wreath',
+    'closing-swag': 'Closing swag',
     'closing-message': 'Closing message',
     'closing-seal': 'Closing wax seal',
-    'venue-ornament': 'Venue ornament',
     'footer-ornament': 'Footer ornament'
   };
 
@@ -355,7 +358,7 @@
       keySelf: !!(removeKey || ownKey),
       removable: true,
       label: labelFor(element),
-      color: colorToHex(styles.color) || '#f7f4ee',
+      color: colorToHex(styles.color) || '#f8f5ec',
       backgroundColor: backgroundToHex(styles),
       anchor: { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
     });
@@ -427,29 +430,33 @@
 
   function enableCanvasEditing() {
     if (window.parent === window) return;
+    document.body.classList.add('editor-live');
     var activeText = null;
     var activeColorElement = null;
     var editorStyles = document.createElement('style');
     editorStyles.textContent =
       '[data-content][contenteditable="true"],[data-editor-path][contenteditable="true"]{' +
-        'outline:1px dashed rgba(205,187,154,.95)!important;' +
+        'outline:1px dashed rgba(203,185,142,.95)!important;' +
         'outline-offset:4px!important;cursor:text!important;' +
       '}' +
-      '.heirloom-editor-color-selected{' +
-        'outline:1px dashed rgba(205,187,154,.9)!important;' +
+      '.fleur-editor-color-selected{' +
+        'outline:1px dashed rgba(203,185,142,.9)!important;' +
         'outline-offset:3px!important;' +
         'cursor:crosshair!important;' +
       '}' +
-      /* decorative envelope pieces ignore pointer events on the guest
-         page — the editor needs to reach them for recolour & removal */
-      '.envelope-lace,.envelope-shadow,.envelope__stamps,.envelope__seal,.envelope__letter{' +
+      /* decorative pieces ignore pointer events on the guest page —
+         the editor needs to reach them for recolour & removal      */
+      '.opening__florals,.opening__glow,.opening__watermark,' +
+      '.envelope__seal-wrap,.envelope__stamp,.envelope__band,.invitation-bloom,' +
+      '.story-swag,.fc-quote__bloom,.story-keepsake,.std-candles,.std-glow,' +
+      '.details-art__arch,.venue-lights,.closing-swag,.countdown-wreath{' +
         'pointer-events:auto!important;' +
       '}' +
       '[data-element-key]:not([contenteditable="true"]){cursor:crosshair;}';
     document.head.appendChild(editorStyles);
 
     function clearActive() {
-      if (activeColorElement) activeColorElement.classList.remove('heirloom-editor-color-selected');
+      if (activeColorElement) activeColorElement.classList.remove('fleur-editor-color-selected');
       activeColorElement = null;
       if (activeText) activeText.blur();
       activeText = null;
@@ -458,7 +465,7 @@
     clearEditorSelection = function () {
       if (activeText) {
         activeText.removeAttribute('contenteditable');
-        activeText.classList.remove('heirloom-editor-text-active');
+        activeText.classList.remove('fleur-editor-text-active');
       }
       clearActive();
     };
@@ -486,7 +493,7 @@
       }
       if (textElement && textPath && typeof getConfigValue(textPath) === 'string' &&
           !textElement.closest('svg')) {
-        /* SVG artwork text (the crest monogram & numerals) stays out
+        /* SVG artwork text (the arch monogram & numerals) stays out
            of the text editor — it is recoloured or removed with its
            group instead, and follows the sidebar fields         */
         event.stopPropagation();
@@ -494,13 +501,13 @@
         if (textElement.closest('a, button')) event.preventDefault();
         if (activeText && activeText !== textElement) activeText.blur();
         if (activeColorElement && activeColorElement !== textElement) {
-          activeColorElement.classList.remove('heirloom-editor-color-selected');
+          activeColorElement.classList.remove('fleur-editor-color-selected');
         }
         activeColorElement = textElement;
-        textElement.classList.add('heirloom-editor-color-selected');
+        textElement.classList.add('fleur-editor-color-selected');
         activeText = textElement;
         textElement.contentEditable = 'true';
-        textElement.classList.add('heirloom-editor-text-active');
+        textElement.classList.add('fleur-editor-text-active');
         textElement.focus();
         var selection = window.getSelection();
         if (selection) {
@@ -524,7 +531,7 @@
           keySelf: textElement.hasAttribute('data-element-key'),
           removable: !!keyedOwner,
           label: labelFor(textElement),
-          color: colorToHex(window.getComputedStyle(textElement).color) || '#f7f4ee',
+          color: colorToHex(window.getComputedStyle(textElement).color) || '#f8f5ec',
           backgroundColor: backgroundToHex(window.getComputedStyle(textElement)),
           anchor: (function () {
             var rect = textElement.getBoundingClientRect();
@@ -534,30 +541,30 @@
         return;
       }
 
-      /* envelope faces paint over their keyed wrappers — select the
+      /* card faces paint over their keyed wrappers — select the
          face itself for recolouring; Remove targets the keyed
          parent (passed as removeKey) so the whole piece comes away */
-      var envelopeFace = event.target.closest('.envelope__flap-face, .envelope__pocket-face, ' +
-        '.envelope__flap-liner, .envelope__back, .envelope__letter-inner');
-      if (envelopeFace) {
+      var cardFace = event.target.closest('.envelope__card-frame, .envelope__card-inner, ' +
+        '.envelope__card, .envelope__band');
+      if (cardFace) {
         event.preventDefault();
         event.stopPropagation();
         clearActive();
-        activeColorElement = envelopeFace;
-        envelopeFace.classList.add('heirloom-editor-color-selected');
-        sendColorSelection(envelopeFace, keyFor(envelopeFace));
+        activeColorElement = cardFace;
+        cardFace.classList.add('fleur-editor-color-selected');
+        sendColorSelection(cardFace, keyFor(cardFace));
         return;
       }
 
-      /* keyed decorative pieces (lace, stamps, seal, letter, flap…) —
-         selectable for recolouring and removable                          */
+      /* keyed decorative pieces (florals, seal, stamp, band…) —
+         selectable for recolouring and removable                  */
       var keyedElement = event.target.closest('[data-element-key]');
       if (keyedElement && !keyedElement.closest('[data-nav], #mobile-menu')) {
         event.preventDefault();
         event.stopPropagation();
         clearActive();
         activeColorElement = keyedElement;
-        keyedElement.classList.add('heirloom-editor-color-selected');
+        keyedElement.classList.add('fleur-editor-color-selected');
         sendColorSelection(keyedElement);
         return;
       }
@@ -568,7 +575,7 @@
         event.stopPropagation();
         clearActive();
         activeColorElement = colorElement;
-        colorElement.classList.add('heirloom-editor-color-selected');
+        colorElement.classList.add('fleur-editor-color-selected');
         sendColorSelection(colorElement);
         return;
       }
@@ -585,7 +592,7 @@
       var path = element.getAttribute('data-editor-path') ||
         configPathForContent(element.getAttribute('data-content') || '');
       element.removeAttribute('contenteditable');
-      element.classList.remove('heirloom-editor-text-active');
+      element.classList.remove('fleur-editor-text-active');
       if (path) previewMessage({
         type: 'heirloom:element-edited',
         element: 'text',
@@ -620,6 +627,7 @@
       clearEditorSelection();
     }
   });
+
   var themePresets = {
     burgundy: { burgundy: '#5D2029', deep: '#4B1A22', wine: '#35181D', crimson: '#8D1E2B', champagne: '#CDBB9A', soft: '#B9A47E', parchment: '#EEE8DD', ivory: '#F7F4EE', paper: '#FBF9F4', night: '#24090D', nightDeep: '#1A060A', olive: '#777957', oliveDeep: '#66684A', sage: '#A1A18A', rose: '#C5A0A0', ink: '#292622', inkSoft: '#4E4942', charcoal: '#70695F' },
     rose: { burgundy: '#70404A', deep: '#56313A', wine: '#39252A', crimson: '#A65D69', champagne: '#D5B6A1', soft: '#C49A8F', parchment: '#F1E8E2', ivory: '#FAF4EF', paper: '#FFF9F5', night: '#2A171C', nightDeep: '#1B0E12', olive: '#81706B', oliveDeep: '#69595A', sage: '#B9A09A', rose: '#D19DA4', ink: '#30282A', inkSoft: '#55484B', charcoal: '#76696B' },
@@ -628,7 +636,7 @@
   };
 
   function applyTheme() {
-    var themeName = Object.prototype.hasOwnProperty.call(themePresets, cfg.theme) ? cfg.theme : 'burgundy';
+    var themeName = Object.prototype.hasOwnProperty.call(themePresets, cfg.theme) ? cfg.theme : 'olive';
     var colors = themePresets[themeName];
     var root = document.documentElement;
     root.style.setProperty('--burgundy', colors.burgundy);
@@ -785,45 +793,28 @@
     });
   });
 
-  /* ══ 3 · WEDDING-DAY WORD SPREAD ═════════════════════════════ */
-  /* A small programme of engraved line icons — one per moment,
-     cycled in order, all drawn to the same hairline weight so the
-     spread reads like the itinerary card of a printed programme. */
-  var MOMENT_ICONS = [
-    /* arrival — a chime bell */
-    '<path d="M16 7c-4.6 0-7.6 3.7-7.6 8.8V20h15.2v-4.2C23.6 10.7 20.6 7 16 7Z"/>' +
-    '<path d="M14.5 7a1.5 1.5 0 0 1 3 0"/><path d="M6.5 20h19"/>' +
-    '<circle cx="16" cy="22.9" r="1.3" fill="currentColor" stroke="none"/>',
-    /* vows — the rings, one crowned with a diamond */
-    '<circle cx="12.8" cy="18.2" r="6.8"/><circle cx="19.2" cy="13.8" r="6.8"/>' +
-    '<path d="M19.2 3.7l2.2 2.2-2.2 2.2-2.2-2.2Z"/>',
-    /* gathering — two coupes, raised */
-    '<path d="M6.5 7h9.5c0 4.1-2.1 6.8-4.75 6.8S6.5 11.1 6.5 7Z"/>' +
-    '<path d="M11.25 13.8V21M7.75 21h7"/>' +
-    '<path d="M16 4.5h9.5c0 4.1-2.1 6.8-4.75 6.8S16 8.6 16 4.5Z"/>' +
-    '<path d="M20.75 11.3V21M17.25 21h7"/>' +
-    '<path d="M15 1.6l1.7 1.7L15 5l-1.7-1.7Z"/>',
-    /* feast — the cloche */
-    '<path d="M7 19a9 9 0 0 1 18 0"/><circle cx="16" cy="8.9" r="1.5"/>' +
-    '<path d="M4.5 19h23"/>',
-    /* toasts — a flute, quietly bubbling */
-    '<path d="M13.2 4h5.6l-.9 10.6c-.1 1.2-1 2-1.9 2s-1.8-.8-1.9-2L13.2 4Z"/>' +
-    '<path d="M16 16.6V23M12.8 23h6.4"/>' +
-    '<circle cx="17.8" cy="7.4" r=".8"/><circle cx="14.9" cy="10.4" r=".7"/>',
-    /* cake — two tiers and a pennant */
-    '<path d="M16 3.6l2.3 1.2L16 6l-2.3-1.2Z"/><path d="M16 6v2.2"/>' +
-    '<path d="M12 16v-2.2c0-1.4 1.8-2.5 4-2.5s4 1.1 4 2.5V16"/>' +
-    '<path d="M9 21v-2.4c0-1.7 3.1-2.6 7-2.6s7 .9 7 2.6V21"/>' +
-    '<path d="M6 21h20"/>',
-    /* dancing — a pair of quavers */
-    '<circle cx="10.8" cy="21.6" r="2.6"/><path d="M13.4 21.6V7.2"/>' +
-    '<circle cx="21.2" cy="19.6" r="2.6"/><path d="M23.8 19.6V5.2"/>' +
-    '<path d="M13.4 7.2l10.4-2"/>',
-    /* further moments — the linden sprig */
-    '<path d="M16 27c0-6 1-10 5-14M16 22c-1-4-4-6-8-6 0 4 3 7 8 8m3-11c-2-4-1-7 2-10 4 3 4 6 1 10m-5 5c3-3 6-4 10-3-1 4-5 6-10 6"/>' +
-    '<path d="M21 13c-2-2-2-5 0-7 2 2 3 5 0 7Zm0 0c3-1 5 0 6 2-2 2-5 2-6-2Z"/>'
-  ];
+  /* ══ 3 · PALETTE SWATCHES ══════════════════════════════════════ */
+  function renderPalette() {
+    var list = document.getElementById('palette-swatches');
+    if (!list) return;
+    var swatches = Array.isArray(cfg.palette) ? cfg.palette : [];
+    list.innerHTML = swatches.map(function (entry) {
+      if (!entry || typeof entry !== 'object') return '';
+      var color = typeof entry.color === 'string' ? entry.color : '';
+      if (!/^#[0-9a-fA-F]{3,8}$/.test(color)) return '';
+      var name = typeof entry.name === 'string' && entry.name.trim()
+        ? entry.name.trim() : color;
+      return '<li><span class="swatch" style="background:' + escapeHTML(color) + '"' +
+        ' role="img" aria-label="' + escapeHTML(name) + '"></span>' +
+        '<span class="swatch-name">' + escapeHTML(name) + '</span></li>';
+    }).join('');
+    list.hidden = !swatches.length;
+  }
+  renderPalette();
 
+  /* ══ 4 · WEDDING-DAY STRING OF LIGHTS ═════════════════════════ */
+  /* Each moment hangs from the cable like a warm bulb — one short
+     word per moment, in order, with the glow doing the decoration. */
   function renderMoments() {
     var list = document.getElementById('day-words');
     var scene = document.getElementById('itinerary');
@@ -839,9 +830,8 @@
     }
     if (scene) scene.hidden = false;
     list.innerHTML = items.map(function (item) {
-      var icon = MOMENT_ICONS[item.index % MOMENT_ICONS.length];
       return '<li class="day-word reveal">' +
-        '<svg class="day-word__icon" viewBox="0 0 32 32" aria-hidden="true">' + icon + '</svg>' +
+        '<span class="day-word__bulb" aria-hidden="true"></span>' +
         '<span class="day-word__text" data-editor-path="moments.' + item.index + '">' +
         escapeHTML(item.word.trim()) + '</span></li>';
     }).join('');
@@ -857,7 +847,7 @@
     });
   }
 
-  /* ══ 4 · COUNTDOWN ═════════════════════════════════════════════ */
+  /* ══ 5 · COUNTDOWN ═════════════════════════════════════════════ */
   var countdownTimer = null;
   var countdownVisibilityHandler = null;
   function initCountdown() {
@@ -874,6 +864,7 @@
       m: box.querySelector('[data-cd-mins]'),
       s: box.querySelector('[data-cd-secs]')
     };
+    if (!els.d || !els.h || !els.m || !els.s) return;
 
     function showMsg(text) {
       box.hidden = true;
@@ -884,18 +875,7 @@
 
     var raw = cfg.wedding && cfg.wedding.iso;
     var target = raw ? new Date(raw) : null;
-    if ((!target || isNaN(target.getTime())) && cfg.wedding) {
-      /* the timer always follows the wedding date — if the ISO stamp
-         is missing, fall back to the date the invitation displays  */
-      var fallback = Date.parse((cfg.wedding.display || '').replace(/(\d{1,2})\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4}).*?(\d{1,2}:\d{2})\s*(AM|PM)?/i, function (_, d, y, t, ap) {
-        var months = { january: 0, february: 1, march: 2, april: 3, may: 4, june: 5, july: 6, august: 7, september: 8, october: 9, november: 10, december: 11 };
-        var month = (cfg.wedding.display || '').toLowerCase().match(/(january|february|march|april|may|june|july|august|september|october|november|december)/);
-        var hh = parseInt(t, 10) % 12 + (ap && /pm/i.test(ap) ? 12 : 0);
-        return y + '-' + String((month ? months[month[1]] : 0) + 1).padStart(2, '0') + '-' +
-          String(parseInt(d, 10)).padStart(2, '0') + 'T' + String(hh).padStart(2, '0') + ':' + t.slice(3) + ':00';
-      }));
-      if (!isNaN(fallback)) target = new Date(fallback);
-    }
+
     if (!target || isNaN(target.getTime())) {
       showMsg((cfg.countdown && cfg.countdown.invalidMessage) ||
               'See the details below for the full schedule.');
@@ -932,6 +912,8 @@
     }
 
     tick();
+    box.hidden = false;
+    msg.hidden = true;
     countdownTimer = window.setInterval(tick, 1000);
 
     /* pause the ticker while the tab is hidden */
@@ -947,7 +929,7 @@
   }
   initCountdown();
 
-  /* ══ 5 · VENUE MAP LINK ════════════════════════════════════════ */
+  /* ══ 6 · VENUE MAP LINK ════════════════════════════════════════ */
   function initMapLink() {
     var link = document.getElementById('map-link');
     if (!link) return;
@@ -966,7 +948,7 @@
   }
   initMapLink();
 
-  /* ══ 6 · ADD TO CALENDAR (real .ics file + Google Calendar) ═════ */
+  /* ══ 7 · ADD TO CALENDAR (real .ics file + Google Calendar) ═════ */
   function padNum(n, len) { return String(n).padStart(len || 2, '0'); }
   function icsUTC(ms) {
     var d = new Date(ms);
@@ -1003,10 +985,10 @@
       var lines = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//The Heirloom Film//Wedding Invitation//EN',
+        'PRODID:-//Fleur and Flame//Wedding Invitation//EN',
         'CALSCALE:GREGORIAN',
         'BEGIN:VEVENT',
-        'UID:' + icsUTC(data.start.getTime()) + '-heirloom@invitation',
+        'UID:' + icsUTC(data.start.getTime()) + '-fleurflame@invitation',
         'DTSTAMP:' + icsUTC(Date.now()),
         'DTSTART:' + icsUTC(data.start.getTime()),
         'DTEND:' + icsUTC(data.end.getTime()),
@@ -1051,7 +1033,7 @@
   }
   updateGcalLink();
 
-  /* ══ 7 · SECTION REVEALS (CSS transitions + IntersectionObserver) ══ */
+  /* ══ 8 · SECTION REVEALS (CSS transitions + IntersectionObserver) ══ */
   (function initReveals() {
     var reveals = document.querySelectorAll('.reveal');
     if (!reveals.length) return;
@@ -1080,7 +1062,7 @@
     reveals.forEach(function (el) { io.observe(el); });
   })();
 
-  /* ══ 8 · A BREATH OF PARALLAX (GSAP only, never essential) ═════ */
+  /* ══ 9 · A BREATH OF PARALLAX (GSAP only, never essential) ═════ */
   function initParallax() {
     if (!hasST || reducedQuery.matches) return;
     try { gsap.registerPlugin(ScrollTrigger); } catch (e) { return; }
@@ -1097,7 +1079,7 @@
   if (document.body.classList.contains('intro-done')) initParallax();
   document.addEventListener('heirloom:intro-complete', initParallax);
 
-  /* ══ 9 · OPTIONAL AMBIENT MUSIC ════════════════════════════════ */
+  /* ══ 10 · OPTIONAL AMBIENT MUSIC ═══════════════════════════════ */
   (function initAudio() {
     var btn = document.getElementById('audio-toggle');
     if (!btn || !cfg.audio || !cfg.audio.src) return;
@@ -1137,7 +1119,7 @@
     });
   })();
 
-  /* ══ 10 · REPLAY THE OPENING & RETURN TO TOP ═══════════════════ */
+  /* ══ 11 · REPLAY THE OPENING & RETURN TO TOP ═══════════════════ */
   var replayBtn = document.getElementById('replay-intro');
   if (replayBtn) {
     replayBtn.addEventListener('click', function () {

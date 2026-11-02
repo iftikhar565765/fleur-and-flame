@@ -1,414 +1,139 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE HEIRLOOM FILM · responsive.css
-   Mobile-first adaptations for tablet, phone, short viewports and
-   large screens — plus reduced-motion and print courtesy.
+   FLEUR & FLAME · responsive.css
+   Every scene keeps its composure from a 360px phone to a
+   4K canvas. Nothing essential is hidden on small screens —
+   the layout simply breathes differently.
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Large screens: keep the compositions composed ─────────────── */
 @media (min-width: 1600px) {
-  :root { --pad-section: 10rem; }
-  .container { width: min(80rem, 88%); }
-}
-
-/* ── ≤ 1024px — the two-column editorials stack ────────────────── */
-@media (max-width: 1024px) {
-  .story-grid,
-  .details-grid,
-  .venue-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(2.4rem, 6vw, 3.6rem);
+  :root {
+    --pad-section: clamp(6rem, 14vh, 11rem);
   }
-  .story-folio { padding-top: 3.5rem; }
-  .venue-head { margin-top: 0; }
-  /* the crest centres itself beneath the ledger */
-  .details-art { justify-self: center; width: min(100%, 26rem); }
 }
 
-/* ── ≤ 880px — navigation condenses to its menu ─────────────────── */
-@media (max-width: 880px) {
-  .nav__links { display: none; }
-}
+/* the mobile menu button is hidden while the full link row fits */
 @media (min-width: 881px) {
   .menu-toggle { display: none; }
 }
 
-/* ── ≤ 760px — collage re-composed for one hand ─────────────────── */
+@media (max-width: 880px) {
+  .nav__links { display: none; }
+}
+
 @media (max-width: 760px) {
-  :root {
-    --pad-section: clamp(3.25rem, 9vh, 5rem);
-    --pad-gutter: clamp(1.1rem, 5vw, 1.65rem);
-  }
+  .nav__wordmark { display: none; }
 
-  /* opening: everything still fits, nothing squashed */
-  .opening__names { font-size: clamp(2.6rem, 12vw, 3.6rem); }
-  .envelope-stage { width: min(88vw, 27rem); }
-  .opening__inner { gap: clamp(.85rem, 2.6vh, 1.5rem); }
-  .opening { padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom)); }
+  /* ── the opening ─────────────────────────────────────────── */
+  .opening { padding-block: 5rem 4rem; }
+  .opening__florals {
+    width: clamp(190px, 46vw, 280px);
+    opacity: .8;
+  }
+  .opening__florals--tl { top: -18px; left: -30px; }
+  .opening__florals--br { bottom: -18px; right: -30px; }
+  .opening__names { font-size: clamp(2.7rem, 12vw, 4rem); }
+  .envelope-stage { margin-block: 2.2rem 2.6rem; }
+  .envelope__stamp { width: 44px; top: 12px; right: 13px; }
+  .envelope__band { height: 30%; top: 58%; left: -9px; right: -9px; }
+  .envelope__address .script { font-size: clamp(1.35rem, 6vw, 1.7rem); }
+  .envelope__letter-mono { font-size: 1.7rem; }
+  .envelope__letter-names { font-size: .85rem; }
+  .envelope__letter-sprig { width: 84px; }
+  .envelope__seal-wrap { bottom: -11%; width: 64px; }
+  .opening__hint-rule { width: 34px; }
+  .opening__hint { gap: .7rem; }
 
-  .nav { padding-top: env(safe-area-inset-top); }
-  .nav__inner { gap: .75rem; }
-  .nav__brand { min-width: 0; gap: .5rem; }
-  .nav__wordmark {
-    max-width: min(52vw, 13rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    letter-spacing: .2em;
-  }
-  .nav__mono { flex: none; }
-
-  .kicker {
-    max-width: 100%;
-    gap: .55rem;
-    white-space: normal;
-    letter-spacing: .23em;
-    line-height: 1.5;
-    text-align: center;
-  }
-  .kicker::before,
-  .kicker::after {
-    flex: 1 1 1.25rem;
-    width: auto;
-    min-width: 1rem;
-  }
-
-  /* story: the folio becomes a salon column — a calm, centred
-     stack of engraved keepsakes. No tape, no collisions: even
-     air between the cards, a champagne hairline frame on each,
-     and only the faintest hand-set tilt. Restraint is the
-     luxury here. */
-  .story-folio {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.7rem;
-    width: min(100%, 24.5rem);
-    margin-inline: auto;
-    padding-block: 2.7rem 2.4rem;
-  }
-  .fc-quote,
-  .fc-note--one,
-  .fc-note--two,
-  .fc-note--three {
-    grid-column: 1;
-    grid-row: auto;
-    margin: 0;
-  }
-  .fc-quote { transform: rotate(-1.2deg); }
-  .fc-note--one { transform: rotate(.85deg); }
-  .fc-note--two { transform: rotate(-.85deg); }
-  .fc-note--three { transform: rotate(.7deg); }
-
-  /* engraved stationery: a champagne hairline frame on every
-     card instead of tape, resting on a deeper, softer plinth */
-  .story-folio .folio-card {
-    box-shadow:
-      0 1px 2px rgba(41, 35, 34, .1),
-      0 18px 36px rgba(41, 35, 34, .17);
-  }
-  .story-folio .folio-card::before {
-    content: "";
-    position: absolute;
-    inset: .55rem;
-    border: 1px solid color-mix(in srgb, var(--champagne) 42%, transparent);
-    pointer-events: none;
-  }
-  .story-folio .tape { display: none; }
-
-  /* a string of pearls: one champagne spine threads the whole
-     column, passing behind each framed keepsake */
-  .story-folio::before {
-    content: "";
-    position: absolute;
-    top: 3.4rem;
-    bottom: 5rem;
-    left: 50%;
-    width: 1px;
-    transform: translateX(-50%);
-    background: linear-gradient(to bottom, transparent,
-      color-mix(in srgb, var(--champagne) 46%, transparent) 4%,
-      color-mix(in srgb, var(--champagne) 46%, transparent) 96%, transparent);
-    pointer-events: none;
-  }
-  .story-folio > * { position: relative; z-index: 1; }
-  .story-folio > .story-caption { z-index: 2; }
-
-  /* the quote wears an oversized engraved quotation mark */
-  .fc-quote::after {
-    content: "\201C";
-    position: absolute;
-    top: .55rem;
-    left: 1.05rem;
-    font-family: var(--font-display);
-    font-size: 4.4rem;
-    line-height: 1;
-    color: color-mix(in srgb, var(--champagne) 62%, transparent);
-    pointer-events: none;
-  }
-
-  /* roman numerals sit in slim gold medallions */
-  .fc-note .folio-card__num {
-    width: 2.15rem;
-    height: 2.15rem;
-    display: grid;
-    place-items: center;
-    border: 1px solid color-mix(in srgb, var(--champagne) 55%, transparent);
-    border-radius: 50%;
-    color: var(--charcoal);
-    background: color-mix(in srgb, var(--paper-raised) 88%, var(--champagne) 12%);
-  }
-
-  /* every keepsake signs off with a hand-set champagne diamond */
-  .story-folio .fc-note::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: .95rem;
-    width: .44rem;
-    height: .44rem;
-    transform: translateX(-50%) rotate(45deg);
-    border: 1px solid color-mix(in srgb, var(--champagne) 62%, transparent);
-    background: color-mix(in srgb, var(--champagne) 28%, transparent);
-  }
-
-  .fc-quote { padding: 2.7rem 1.9rem 2.5rem; }
-  .fc-quote blockquote {
-    font-size: clamp(1.4rem, 6vw, 1.85rem);
-    line-height: 1.42;
-  }
-  .fc-quote figcaption { margin-top: 1.05rem; font-size: 1.05rem; }
-  .fc-note { padding: 2.1rem 1.5rem 1.95rem; }
-  .fc-note .folio-card__hand { font-size: clamp(1.35rem, 5.4vw, 1.7rem); }
-
-  /* the handwritten caption lands beneath the stack, centred,
-     like an inscription under a framed plate — set between two
-     small champagne flourishes */
-  .story-caption {
-    position: static;
-    margin-top: .9rem;
-    text-align: center;
-    white-space: normal;
-    text-shadow: none;
-    transform: rotate(-1.4deg);
-    font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-  .story-caption::before,
-  .story-caption::after {
-    content: "";
-    display: inline-block;
-    width: 2.1rem;
-    height: 1px;
-    vertical-align: middle;
-    margin: 0 .65rem;
-    background: linear-gradient(to right, transparent,
-      color-mix(in srgb, var(--champagne) 70%, transparent));
-  }
-  .story-caption::after { transform: scaleX(-1); }
-  .story-keepsake { display: none; }
-  .story-garland { width: 7.2rem; right: -1.9rem; top: -.6rem; opacity: .9; }
-  .story-garland--bottom { display: none; }
-  .story-note { margin-top: 1.6rem; }
-
-  /* save the date: burgundy pause stays typographic */
-  .std-crossing {
-    width: 100%;
-    margin-left: 0;
-    margin-top: -.42em;
-    text-align: center;
-    font-size: clamp(1.7rem, 6.5vw, 2.8rem);
-  }
-  .std-date {
-    font-size: clamp(2.5rem, 11vw, 5rem);
-    letter-spacing: .025em;
-  }
-  .std-date-eyebrow { letter-spacing: .24em; line-height: 1.8; }
-  .std-actions { gap: .75rem; }
-  .std-actions > * { width: min(100%, 22rem); }
-  .std-note { max-width: 34ch; margin-inline: auto; }
-  .std-seal { width: clamp(3.5rem, 12vw, 5rem); }
-
-  .itinerary-head { margin-bottom: 2rem; }
-  .itinerary-head .display { font-size: clamp(2.5rem, 10vw, 4.4rem); }
-  .day-words {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 1.35rem;
-  }
-  .day-word {
-    min-height: 6.4rem;
-    border-right: 1px solid rgba(205, 187, 154, .22);
-  }
-  .day-word:nth-child(3n) { border-right: 1px solid rgba(205, 187, 154, .22); }
-  .day-word:nth-child(2n) { border-right: 0; }
-  .day-word:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    border-right: 0;
-  }
-  .day-word__icon { width: 1.25rem; }
-  .day-word__text { font-size: clamp(1.5rem, 5vw, 2.05rem); }
-
-  .details-copy > .display br,
-  .palette-heading > .display br { display: none; }
-  .palette-layout { grid-template-columns: 1fr; align-items: start; gap: 2.5rem; }
-  .venue-grid { gap: 2rem; }
-  .venue-actions > * { min-height: 44px; }
-  .rsvp-card { padding: 2rem clamp(1rem, 3.5vw, 1.5rem); }
-  .rsvp-form { gap: 1.35rem; }
-
-  /* venue: the lace tableau frames the night scene */
-  .venue-lace { width: clamp(20rem, 80vw, 30rem); opacity: .12; }
-  .venue-name { font-size: clamp(2.2rem, 10vw, 3.2rem); }
-}
-
-/* ── ≤ 560px — the smallest phones stay elegant ────────────────── */
-@media (max-width: 560px) {
-  :root { --pad-section: clamp(3rem, 8vh, 4.25rem); }
-  .container { width: calc(100% - var(--pad-gutter) - var(--pad-gutter)); }
-  .nav__inner { padding-block: .45rem; }
-  .icon-btn { width: 2.75rem; height: 2.75rem; }
-  .menu ul {
-    width: 100%;
-    min-height: 0;
-    max-height: calc(100vh - 1rem);
-    max-height: calc(100dvh - 1rem);
-    overflow-y: auto;
-    gap: .7rem;
-    padding: 4rem 1.2rem 1.5rem;
-  }
-  .menu a {
-    gap: .65rem;
-    font-size: clamp(1.35rem, 6vw, 1.8rem);
-  }
-  .menu a span { font-size: .56rem; letter-spacing: .2em; }
-  .menu__close { top: max(.75rem, env(safe-area-inset-top)); right: 1rem; }
-  .invite-card { padding: 2.6rem 1.2rem 2.3rem; }
-  .invite-card .flourish { width: 2.3rem; }
-  .invite-card__names { font-size: clamp(2.45rem, 11vw, 3.4rem); }
-  .invite-card__datewords { letter-spacing: .2em; line-height: 1.8; }
-  .invite-card__lead { font-size: 1.05rem; }
-  .invite-card__timezone { font-size: .58rem; letter-spacing: .13em; }
+  /* ── № 01 invitation ─────────────────────────────────────── */
+  .invite-card { margin-inline: 0; }
+  .invite-card__spray { width: 132px; }
+  .invite-card__spray--tl { top: -22px; left: -18px; }
+  .invite-card__spray--br { bottom: -22px; right: -18px; }
+  .invite-card__names { font-size: clamp(2.7rem, 12.5vw, 4.2rem); }
   .invite-actions { display: grid; grid-template-columns: 1fr; }
-  .invite-actions > * { width: min(100%, 22rem); margin-inline: auto; }
-  .story-grid { gap: 1.8rem; }
-  .story-title { font-size: clamp(2.1rem, 10vw, 3.5rem); }
-  .story-copy .prose { max-width: none; }
-  .story-folio { gap: 1.55rem; }
-  .story-caption { font-size: clamp(1.4rem, 5.6vw, 1.8rem); }
-  .std-kicker-line { gap: .5rem; }
-  .std-kicker-line::before,
-  .std-kicker-line::after { width: clamp(1rem, 8vw, 2.2rem); }
-  .std-kicker-line span {
-    font-size: .57rem;
-    letter-spacing: .22em;
-    padding-left: .2em;
-  }
-  .std-date { font-size: clamp(2.15rem, 10.2vw, 3.6rem); }
-  .std-crossing { font-size: clamp(1.55rem, 7vw, 2.25rem); }
-  .std-venue { margin-top: 1rem; }
-  .detail-item { grid-template-columns: 1.8rem minmax(0, 1fr); column-gap: .7rem; }
-  .details-art { width: min(100%, 23rem); }
-  .venue-name { overflow-wrap: anywhere; }
-  .venue-address { gap: .65rem; }
-  .venue-sublines .sub { flex-wrap: wrap; row-gap: .15rem; }
-  .venue-actions > * { width: 100%; }
-  .count-row { gap: clamp(.55rem, 3vw, 1rem); }
-  .count-unit { min-width: 0; flex: 1 1 0; }
-  .count-num { font-size: clamp(1.85rem, 9vw, 2.7rem); }
-  .count-label { font-size: .55rem; letter-spacing: .16em; }
-  .count-summary { letter-spacing: .18em; line-height: 1.7; }
-  .closing-names { font-size: clamp(2.5rem, 11vw, 4rem); }
-  .closing-date { font-size: .62rem; letter-spacing: .2em; line-height: 1.8; }
-  .closing-actions > * { min-height: 44px; }
+  .invitation-bloom { opacity: .32; }
 
-  .field--half-row { grid-template-columns: 1fr; }
-  .choices { grid-template-columns: 1fr; }
-  .kicker { letter-spacing: .26em; gap: .7rem; }
-  .std-kicker-line .std-kicker-num { display: none; }
-  .btn { min-height: 44px; padding: .9em 1.25em; letter-spacing: .18em; }
-  /* the reply card sits close to the edge so the form reads wide,
-     not thin: slim scene gutter + slim card padding */
-  .scene--rsvp .container { width: calc(100% - 1.25rem); }
-  .rsvp-card { padding-inline: .95rem; }
-  .rsvp-title { font-size: clamp(1.85rem, 8vw, 2.6rem); }
-  .rsvp-summary > div { grid-template-columns: minmax(5rem, auto) minmax(0, 1fr); gap: .65rem; }
-  .rsvp-summary dt { letter-spacing: .14em; }
-  .rsvp-summary dd { overflow-wrap: anywhere; }
-  .footer { padding: 2rem 1rem calc(2rem + env(safe-area-inset-bottom)); }
-  .footer .small { font-size: .56rem; letter-spacing: .18em; line-height: 1.7; }
+  /* ── № 02 story ──────────────────────────────────────────── */
+  .story-folio { padding-top: 3.4rem; }
+  .story-swag { width: 96%; top: -8px; }
+  .fc-quote__bloom { width: 64px; top: -24px; right: -8px; }
+  .fc-note--one, .fc-note--two, .fc-note--three { margin-left: 0; margin-right: .4rem; }
+  .story-caption { position: static; display: block; margin-top: 1.8rem; transform: rotate(-2deg); }
+  .story-keepsake { position: static; margin-top: 1.6rem; }
+
+  /* ── № 03 save the date ──────────────────────────────────── */
+  .std-date { font-size: clamp(2.9rem, 13vw, 4.6rem); }
+  .std-candles { width: 150px; }
+
+  /* ── № 04 details ────────────────────────────────────────── */
+  .detail-item { grid-template-columns: 1.8rem minmax(0, 1fr); column-gap: .7rem; }
+  .details-art { max-width: 340px; }
+
+  /* ── № 05 palette ────────────────────────────────────────── */
+  .palette-swatches { gap: 1rem; }
+  .palette-swatches li { width: calc(33.3% - .8rem); min-width: 88px; }
+
+  /* ── № 06 string of lights ───────────────────────────────── */
+  .day-words { gap: 1.3rem 1.5rem; padding-top: 1.6rem; }
+  .day-words::before { display: none; }
+  .day-word { min-width: 84px; }
+
+  /* ── № 07 venue ──────────────────────────────────────────── */
+  .venue-lights { width: 170%; }
+  .venue-name { font-size: clamp(1.9rem, 7.5vw, 2.9rem); }
+
+  /* ── № 09 countdown ──────────────────────────────────────── */
+  .countdown-wreath { width: clamp(240px, 74vw, 380px); opacity: .24; }
+  .count-row { flex-wrap: nowrap; gap: clamp(.9rem, 3.5vw, 1.6rem); }
+  .count-unit { min-width: 3.4rem; }
+
+  /* ── № 10 closing ────────────────────────────────────────── */
+  .closing-swag { width: 108%; }
+  .closing-names { font-size: clamp(2.7rem, 12vw, 4.2rem); }
 }
 
-/* ── ≤ 440px — narrow phones: no squished prints ────────────────── */
+@media (max-width: 560px) {
+  .field--half-row { grid-template-columns: 1fr; }
+
+  .rsvp-summary > div {
+    grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
+    gap: .65rem;
+  }
+
+  .std-actions { display: grid; grid-template-columns: 1fr; }
+  .std-actions .btn { justify-content: center; }
+
+  .palette-swatches li { width: calc(50% - .6rem); }
+
+  .footer { padding-block: 3.4rem 2.4rem; }
+}
+
 @media (max-width: 440px) {
-  /* the salon column breathes a little closer on narrow phones */
-  .story-folio { gap: 1.45rem; width: min(100%, 21.5rem); }
-  .fc-quote { padding: 2.4rem 1.55rem 2.25rem; }
-  .fc-note { padding: 1.9rem 1.3rem 1.8rem; }
-  .details-copy > .display { font-size: clamp(2.45rem, 11vw, 3.3rem); }
-  .details-art { width: min(100%, 20.5rem); }
-  .palette-heading .display { font-size: clamp(2rem, 9vw, 2.75rem); }
-  .itinerary-head .display { font-size: clamp(2.35rem, 10vw, 3.2rem); }
-  .day-words { padding: 1rem; }
-  .day-words::before { inset: .45rem; }
-  .day-word { min-height: 5.6rem; gap: .45rem; padding-inline: .35rem; }
-  .day-word__icon { width: 1.05rem; }
-  .day-word__text { font-size: clamp(1.35rem, 5.8vw, 1.8rem); }
-  .closing-script { margin-top: 2.2rem; }
-  .menu ul { gap: .58rem; }
+  .opening__eyebrow { max-width: 30ch; margin-inline: auto; }
+  .envelope__to { letter-spacing: .2em; }
+  .invite-card__timezone { max-width: 30ch; margin-inline: auto; }
+  .count-unit { min-width: 2.9rem; }
+  .count-num { font-size: clamp(1.9rem, 9vw, 2.5rem); }
 }
 
 @media (max-width: 360px) {
-  :root { --pad-gutter: 1rem; }
-  .opening__inner { gap: .7rem; }
-  .envelope-stage { width: min(86vw, 19rem); }
-  .invite-card { padding-inline: 1rem; }
-  .invite-card__names { font-size: 2.3rem; }
-  .invite-card .flourish { width: 2rem; }
-  .std-date { font-size: clamp(2rem, 9.5vw, 2.65rem); }
-  .std-actions > * { width: 100%; }
-  .count-row { gap: .45rem; }
-  .count-num { font-size: 1.8rem; }
-  .count-label { letter-spacing: .1em; }
-  .closing-names { font-size: 2.35rem; }
   .rsvp-summary > div { grid-template-columns: 1fr; gap: .25rem; }
+  .rsvp-summary dd { text-align: left; }
 }
 
-/* ── Short viewports (landscape phones) — the cover still fits ──── */
+/* short landscape screens: let the opening scroll instead of
+   squeezing the card */
 @media (max-height: 620px) and (max-width: 1024px) {
-  .opening__watermark { display: none; }
-  .opening { padding-block: max(.45rem, env(safe-area-inset-top)) max(.45rem, env(safe-area-inset-bottom)); }
-  .opening__inner { gap: .4rem; }
-  .opening__eyebrow { margin-bottom: .15rem; }
-  .opening__names { font-size: clamp(1.7rem, 7vh, 2.4rem); }
-  .envelope-stage { width: min(45vw, 14rem); }
-  .envelope-lace { display: none; }
-  .opening__hint { margin-block: .1rem; font-size: .95rem; }
-  .opening__open { min-height: 44px; padding: .65em 1.4em; }
-  .opening__skip {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-    padding: .25rem .4rem;
-    font-size: .58rem;
+  .opening {
+    min-height: auto;
+    padding-block: 5.5rem;
   }
+  .opening__glow { top: 50%; }
 }
 
-/* ── Reduced motion: everything readable, nothing required ───────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
-  html.js .reveal { opacity: 1; transform: none; }
-  .opening.is-leaving { transition: opacity .01ms; }
-}
-
-/* ── Print: the invitation, on real paper ───────────────────────── */
-@media print {
-  .opening, .nav, .menu, .skip-link, .btn, .std-actions,
-  .venue-actions, .rsvp-actions, .count-row, .closing-actions { display: none !important; }
-  .opening::after, .invite-card::before { display: none; }
-  .scene { padding-block: 1.8rem; background: #fff !important; }
-  .scene--burgundy, .scene--night, .scene--closing { color: #292322; background: #fff !important; }
-  .invite-card { box-shadow: none; border: 1px solid #999; }
-  .reveal { opacity: 1 !important; transform: none !important; }
+  .btn:hover { transform: none; }
+  .envelope:hover,
+  .envelope:focus-visible { transform: rotate(-1.6deg); }
+  .menu a:hover { transform: none; }
 }
