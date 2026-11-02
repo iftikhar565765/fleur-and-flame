@@ -1,7 +1,8 @@
 # Copy this file to .dev.vars to use the optional secrets locally:
 #   cp .dev.vars.example .dev.vars
-# On the deployed site, set them in the Pages project:
-#   Settings → Environment variables (they are all optional).
+# On the deployed site, set them in the Worker:
+#   Settings → Variables and Secrets (they are all optional).
+# Full deployment walkthrough: DEPLOY.md
 #
 # Access-code gate: when set, buyers must quote this code before
 # their first publish. Leave empty for an open editor.

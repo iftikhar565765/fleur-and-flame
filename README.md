@@ -47,6 +47,9 @@ previews, sends nothing).
 
 ## Go-live checklist (new Cloudflare project)
 
+A full click-by-click walkthrough — dashboard+Git path and CLI path —
+lives in **[DEPLOY.md](DEPLOY.md)**. The short CLI version:
+
 1. `npm install`
 2. Create the database:
    `npx wrangler d1 create fleur-invitations`
