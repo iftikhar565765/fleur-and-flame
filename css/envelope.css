@@ -26,8 +26,8 @@
   z-index: 0;
   width: clamp(230px, 23vw, 430px);
   height: auto;
-  opacity: .78;
-  filter: saturate(.78) drop-shadow(0 10px 18px rgba(41, 41, 32, .08));
+  opacity: .72;
+  filter: saturate(.76) drop-shadow(0 10px 18px rgba(41, 41, 32, .07));
   pointer-events: none;
   animation: florals-sway 14s var(--ease-soft) infinite alternate;
 }
@@ -89,7 +89,7 @@
   font-family: var(--font-script);
   font-size: clamp(18rem, 46vw, 34rem);
   line-height: 1;
-  color: color-mix(in srgb, var(--ink) 3.5%, transparent);
+  color: color-mix(in srgb, var(--ink) 3%, transparent);
   pointer-events: none;
   user-select: none;
 }
@@ -117,7 +117,9 @@
 .envelope-stage {
   position: relative;
   width: min(440px, 86vw, 56vh);
-  margin: 1.9rem auto 1.6rem;
+  /* the wax seal overhangs the card by ~13% of the stage height —
+     the bottom margin must clear it, or the seal grazes the hint  */
+  margin: 1.9rem auto 3.3rem;
 }
 
 .table-shadow {
@@ -321,9 +323,11 @@
 
 .opening__open { margin-top: .2rem; }
 
+/* the skip is its own quiet line beneath the CTA — never a
+   second button crowding the same baseline                     */
 .opening__skip {
-  display: inline-block;
-  margin-top: 1.15rem;
+  display: block;
+  margin: 1rem auto 0;
   font-size: var(--fs-small);
   color: var(--charcoal);
   text-decoration: underline;

@@ -24,7 +24,8 @@
   .nav__wordmark { display: none; }
 
   /* ── the opening ─────────────────────────────────────────── */
-  .opening { padding-block: 5rem 4rem; }
+  /* symmetric padding keeps the centred composition truly centred */
+  .opening { padding-block: 4.5rem; }
   .opening__florals {
     width: clamp(165px, 42vw, 250px);
     opacity: .72;
@@ -59,7 +60,7 @@
   .fc-quote__bloom { width: 64px; top: -24px; right: -8px; }
   .fc-note--one, .fc-note--two, .fc-note--three { margin-left: 0; margin-right: .4rem; }
   .story-caption { position: static; display: block; margin-top: 1.8rem; transform: rotate(-2deg); }
-  .story-keepsake { position: static; margin-top: 1.6rem; }
+  .story-keepsake { position: static; margin-top: 2.2rem; }
 
   /* ── № 03 save the date ──────────────────────────────────── */
   .std-date { font-size: clamp(2.9rem, 13vw, 4.6rem); }
